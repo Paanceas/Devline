@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AdquisicionCreateDlg" widgetVar="AdquisicionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAdquisicionTitle}">
+            <h:form id="AdquisicionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{adquisicionController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateAdquisicionLabel_idAdquisicion}" for="idAdquisicion" />
+                        <p:inputText id="idAdquisicion" value="#{adquisicionController.selected.idAdquisicion}" title="#{bundle.CreateAdquisicionTitle_idAdquisicion}" required="true" requiredMessage="#{bundle.CreateAdquisicionRequiredMessage_idAdquisicion}"/>
+                        <p:outputLabel value="#{bundle.CreateAdquisicionLabel_fechaAdquisicion}" for="fechaAdquisicion" />
+                        <p:calendar id="fechaAdquisicion" pattern="MM/dd/yyyy" value="#{adquisicionController.selected.fechaAdquisicion}" title="#{bundle.EditAdquisicionTitle_fechaAdquisicion}" required="true" requiredMessage="#{bundle.EditAdquisicionRequiredMessage_fechaAdquisicion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateAdquisicionLabel_valorTotalAdquisicion}" for="valorTotalAdquisicion" />
+                        <p:inputText id="valorTotalAdquisicion" value="#{adquisicionController.selected.valorTotalAdquisicion}" title="#{bundle.CreateAdquisicionTitle_valorTotalAdquisicion}" required="true" requiredMessage="#{bundle.CreateAdquisicionRequiredMessage_valorTotalAdquisicion}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{adquisicionController.create}" value="#{bundle.Save}" update="display,:AdquisicionListForm:datalist,:growl" oncomplete="handleSubmit(args,'AdquisicionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AdquisicionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

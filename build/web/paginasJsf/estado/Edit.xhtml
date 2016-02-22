@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EstadoEditDlg" widgetVar="EstadoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEstadoTitle}">
+            <h:form id="EstadoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{estadoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditEstadoLabel_idEstado}" for="idEstado" />
+                        <p:inputText id="idEstado" value="#{estadoController.selected.idEstado}" title="#{bundle.EditEstadoTitle_idEstado}" required="true" requiredMessage="#{bundle.EditEstadoRequiredMessage_idEstado}"/>
+                        <p:outputLabel value="#{bundle.EditEstadoLabel_tipoEstado}" for="tipoEstado" />
+                        <p:inputText id="tipoEstado" value="#{estadoController.selected.tipoEstado}" title="#{bundle.EditEstadoTitle_tipoEstado}" required="true" requiredMessage="#{bundle.EditEstadoRequiredMessage_tipoEstado}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{estadoController.update}" value="#{bundle.Save}" update="display,:EstadoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EstadoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EstadoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

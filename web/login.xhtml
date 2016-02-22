@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Ingreso</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>-->
+        
+        <h:outputStylesheet name="css/estilos.css"/>
+        <h:outputStylesheet name="css/flatlyBootstrap.min.css"/>
+    </h:head>
+    <h:body>
+
+        <div class="container">
+            <h:form class="form-signin">
+                <h2 class="form-signin-heading text-center">Ingreso a </h2>
+                <center>
+                    <img src="resources/img/devline.png" width="180px"></img><br/><br/>
+                </center>
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                <h:inputText value="#{usuarioController.selected.nombreUsuario}" class="form-control" pt:placeholder="Usuario" pt:required=""/>
+                <h:inputSecret value="#{usuarioController.selected.clave}" required="true" requiredMessage="la contraseña es obligatoria" class="form-control" pt:placeholder="Password"/>  
+                <h:commandButton action="#{usuarioController.validar()}" value="Ingresar" class="btn btn-primary btn-block" />
+                <h:link value="Volver" outcome="index.xhtml" class="btn btn-danger btn-block" />
+            </h:form>
+        </div> 
+    </h:body>
+</html>
+

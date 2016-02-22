@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CiudadEditDlg" widgetVar="CiudadEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCiudadTitle}">
+            <h:form id="CiudadEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ciudadController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCiudadLabel_idCiudad}" for="idCiudad" />
+                        <p:inputText id="idCiudad" value="#{ciudadController.selected.idCiudad}" title="#{bundle.EditCiudadTitle_idCiudad}" required="true" requiredMessage="#{bundle.EditCiudadRequiredMessage_idCiudad}"/>
+                        <p:outputLabel value="#{bundle.EditCiudadLabel_nombreCiudad}" for="nombreCiudad" />
+                        <p:inputText id="nombreCiudad" value="#{ciudadController.selected.nombreCiudad}" title="#{bundle.EditCiudadTitle_nombreCiudad}" required="true" requiredMessage="#{bundle.EditCiudadRequiredMessage_nombreCiudad}"/>
+                        <p:outputLabel value="#{bundle.EditCiudadLabel_idUbicacion}" for="idUbicacion" />
+                        <p:selectOneMenu id="idUbicacion" value="#{ciudadController.selected.idUbicacion}" required="true" requiredMessage="#{bundle.EditCiudadRequiredMessage_idUbicacion}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ubicacionController.itemsAvailableSelectOne}"
+                                           var="idUbicacionItem"
+                                           itemValue="#{idUbicacionItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ciudadController.update}" value="#{bundle.Save}" update="display,:CiudadListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CiudadEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CiudadEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

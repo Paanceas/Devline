@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmpleadoViewDlg" widgetVar="EmpleadoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEmpleadoTitle}">
+            <h:form id="EmpleadoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{empleadoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewEmpleadoLabel_idEmpleado}"/>
+                        <h:outputText value="#{empleadoController.selected.idEmpleado}" title="#{bundle.ViewEmpleadoTitle_idEmpleado}"/>
+                        <h:outputText value="#{bundle.ViewEmpleadoLabel_nombre}"/>
+                        <h:outputText value="#{empleadoController.selected.nombre}" title="#{bundle.ViewEmpleadoTitle_nombre}"/>
+                        <h:outputText value="#{bundle.ViewEmpleadoLabel_documento}"/>
+                        <h:outputText value="#{empleadoController.selected.documento}" title="#{bundle.ViewEmpleadoTitle_documento}"/>
+                        <h:outputText value="#{bundle.ViewEmpleadoLabel_telefono}"/>
+                        <h:outputText value="#{empleadoController.selected.telefono}" title="#{bundle.ViewEmpleadoTitle_telefono}"/>
+                        <h:outputText value="#{bundle.ViewEmpleadoLabel_celular}"/>
+                        <h:outputText value="#{empleadoController.selected.celular}" title="#{bundle.ViewEmpleadoTitle_celular}"/>
+                        <h:outputText value="#{bundle.ViewEmpleadoLabel_direccion}"/>
+                        <h:outputText value="#{empleadoController.selected.direccion}" title="#{bundle.ViewEmpleadoTitle_direccion}"/>
+                        <h:outputText value="#{bundle.ViewEmpleadoLabel_correo}"/>
+                        <h:outputText value="#{empleadoController.selected.correo}" title="#{bundle.ViewEmpleadoTitle_correo}"/>
+                        <h:outputText value="#{bundle.ViewEmpleadoLabel_arl}"/>
+                        <h:outputText value="#{empleadoController.selected.arl}" title="#{bundle.ViewEmpleadoTitle_arl}"/>
+                        <h:outputText value="#{bundle.ViewEmpleadoLabel_fechaIngreso}"/>
+                        <h:outputText value="#{empleadoController.selected.fechaIngreso}" title="#{bundle.ViewEmpleadoTitle_fechaIngreso}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewEmpleadoLabel_fechaRetiro}"/>
+                        <h:outputText value="#{empleadoController.selected.fechaRetiro}" title="#{bundle.ViewEmpleadoTitle_fechaRetiro}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewEmpleadoLabel_eliminar}"/>
+                        <p:selectBooleanCheckbox value="#{empleadoController.selected.eliminar}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewEmpleadoLabel_idTipoIdentificacion}"/>
+                        <h:outputText value="#{empleadoController.selected.idTipoIdentificacion}" title="#{bundle.ViewEmpleadoTitle_idTipoIdentificacion}"/>
+                        <h:outputText value="#{bundle.ViewEmpleadoLabel_idUsuario}"/>
+                        <h:outputText value="#{empleadoController.selected.idUsuario}" title="#{bundle.ViewEmpleadoTitle_idUsuario}"/>
+                        <h:outputText value="#{bundle.ViewEmpleadoLabel_idCargo}"/>
+                        <h:outputText value="#{empleadoController.selected.idCargo}" title="#{bundle.ViewEmpleadoTitle_idCargo}"/>
+                        <h:outputText value="#{bundle.ViewEmpleadoLabel_idSalud}"/>
+                        <h:outputText value="#{empleadoController.selected.idSalud}" title="#{bundle.ViewEmpleadoTitle_idSalud}"/>
+                        <h:outputText value="#{bundle.ViewEmpleadoLabel_idPension}"/>
+                        <h:outputText value="#{empleadoController.selected.idPension}" title="#{bundle.ViewEmpleadoTitle_idPension}"/>
+                        <h:outputText value="#{bundle.ViewEmpleadoLabel_idCajaDeCompensacion}"/>
+                        <h:outputText value="#{empleadoController.selected.idCajaDeCompensacion}" title="#{bundle.ViewEmpleadoTitle_idCajaDeCompensacion}"/>
+                        <h:outputText value="#{bundle.ViewEmpleadoLabel_idCiudad}"/>
+                        <h:outputText value="#{empleadoController.selected.idCiudad}" title="#{bundle.ViewEmpleadoTitle_idCiudad}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="EmpleadoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

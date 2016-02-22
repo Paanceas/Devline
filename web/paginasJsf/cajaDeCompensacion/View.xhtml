@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CajaDeCompensacionViewDlg" widgetVar="CajaDeCompensacionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCajaDeCompensacionTitle}">
+            <h:form id="CajaDeCompensacionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cajaDeCompensacionController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCajaDeCompensacionLabel_idCajaDeCompensacion}"/>
+                        <h:outputText value="#{cajaDeCompensacionController.selected.idCajaDeCompensacion}" title="#{bundle.ViewCajaDeCompensacionTitle_idCajaDeCompensacion}"/>
+                        <h:outputText value="#{bundle.ViewCajaDeCompensacionLabel_nombreCajaDeCompensacion}"/>
+                        <h:outputText value="#{cajaDeCompensacionController.selected.nombreCajaDeCompensacion}" title="#{bundle.ViewCajaDeCompensacionTitle_nombreCajaDeCompensacion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="CajaDeCompensacionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

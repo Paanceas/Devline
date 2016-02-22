@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaterialHasAdquisicionEditDlg" widgetVar="MaterialHasAdquisicionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMaterialHasAdquisicionTitle}">
+            <h:form id="MaterialHasAdquisicionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{materialHasAdquisicionController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditMaterialHasAdquisicionLabel_idMaterialHasAdquisicion}" for="idMaterialHasAdquisicion" />
+                        <p:inputText id="idMaterialHasAdquisicion" value="#{materialHasAdquisicionController.selected.idMaterialHasAdquisicion}" title="#{bundle.EditMaterialHasAdquisicionTitle_idMaterialHasAdquisicion}" required="true" requiredMessage="#{bundle.EditMaterialHasAdquisicionRequiredMessage_idMaterialHasAdquisicion}"/>
+                        <p:outputLabel value="#{bundle.EditMaterialHasAdquisicionLabel_idTipoUniMedida}" for="idTipoUniMedida" />
+                        <p:selectOneMenu id="idTipoUniMedida" value="#{materialHasAdquisicionController.selected.idTipoUniMedida}" required="true" requiredMessage="#{bundle.EditMaterialHasAdquisicionRequiredMessage_idTipoUniMedida}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoUniMedidaController.itemsAvailableSelectOne}"
+                                           var="idTipoUniMedidaItem"
+                                           itemValue="#{idTipoUniMedidaItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditMaterialHasAdquisicionLabel_idMaterial}" for="idMaterial" />
+                        <p:selectOneMenu id="idMaterial" value="#{materialHasAdquisicionController.selected.idMaterial}" required="true" requiredMessage="#{bundle.EditMaterialHasAdquisicionRequiredMessage_idMaterial}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{materialController.itemsAvailableSelectOne}"
+                                           var="idMaterialItem"
+                                           itemValue="#{idMaterialItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditMaterialHasAdquisicionLabel_idAdquisicion}" for="idAdquisicion" />
+                        <p:selectOneMenu id="idAdquisicion" value="#{materialHasAdquisicionController.selected.idAdquisicion}" required="true" requiredMessage="#{bundle.EditMaterialHasAdquisicionRequiredMessage_idAdquisicion}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{adquisicionController.itemsAvailableSelectOne}"
+                                           var="idAdquisicionItem"
+                                           itemValue="#{idAdquisicionItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{materialHasAdquisicionController.update}" value="#{bundle.Save}" update="display,:MaterialHasAdquisicionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MaterialHasAdquisicionEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MaterialHasAdquisicionEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

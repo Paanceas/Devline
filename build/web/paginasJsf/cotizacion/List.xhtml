@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListCotizacionTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="CotizacionListForm">
+                <p:panel header="#{bundle.ListCotizacionTitle}">
+                    <p:dataTable id="datalist" value="#{cotizacionController.items}" var="item"
+                                 selectionMode="single" selection="#{cotizacionController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idCotizacion}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCotizacionTitle_idCotizacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCotizacion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCotizacionTitle_fechaCotizacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaCotizacion}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCotizacionTitle_notaInicio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.notaInicio}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCotizacionTitle_iva}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.iva}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCotizacionTitle_notaFinal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.notaFinal}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCotizacionTitle_eliminar}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.eliminar}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCotizacionTitle_idCliente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCliente}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{cotizacionController.prepareCreate}" update=":CotizacionCreateForm" oncomplete="PF('CotizacionCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CotizacionViewForm" oncomplete="PF('CotizacionViewDialog').show()" disabled="#{empty cotizacionController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":CotizacionEditForm" oncomplete="PF('CotizacionEditDialog').show()" disabled="#{empty cotizacionController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{cotizacionController.destroy}" update=":growl,datalist" disabled="#{empty cotizacionController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

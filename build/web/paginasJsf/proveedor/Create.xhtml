@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProveedorCreateDlg" widgetVar="ProveedorCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProveedorTitle}">
+            <h:form id="ProveedorCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{proveedorController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_idProveedor}" for="idProveedor" />
+                        <p:inputText id="idProveedor" value="#{proveedorController.selected.idProveedor}" title="#{bundle.CreateProveedorTitle_idProveedor}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_idProveedor}"/>
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{proveedorController.selected.nombre}" title="#{bundle.CreateProveedorTitle_nombre}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_identificacion}" for="identificacion" />
+                        <p:inputText id="identificacion" value="#{proveedorController.selected.identificacion}" title="#{bundle.CreateProveedorTitle_identificacion}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_identificacion}"/>
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{proveedorController.selected.direccion}" title="#{bundle.CreateProveedorTitle_direccion}" />
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_telefono}" for="telefono" />
+                        <p:inputText id="telefono" value="#{proveedorController.selected.telefono}" title="#{bundle.CreateProveedorTitle_telefono}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_telefono}"/>
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_celular}" for="celular" />
+                        <p:inputText id="celular" value="#{proveedorController.selected.celular}" title="#{bundle.CreateProveedorTitle_celular}" />
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_correo}" for="correo" />
+                        <p:inputText id="correo" value="#{proveedorController.selected.correo}" title="#{bundle.CreateProveedorTitle_correo}" />
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_eliminar}" for="eliminar" />
+                        <p:selectBooleanCheckbox id="eliminar" value="#{proveedorController.selected.eliminar}" required="true" requiredMessage="#{bundle.EditProveedorRequiredMessage_eliminar}"/>
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_idTipoIdentificacion}" for="idTipoIdentificacion" />
+                        <p:selectOneMenu id="idTipoIdentificacion" value="#{proveedorController.selected.idTipoIdentificacion}" required="true" requiredMessage="#{bundle.EditProveedorRequiredMessage_idTipoIdentificacion}">
+                            <f:selectItems value="#{tipoIdentificacionController.itemsAvailableSelectOne}"
+                                           var="idTipoIdentificacionItem"
+                                           itemValue="#{idTipoIdentificacionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_idCiudad}" for="idCiudad" />
+                        <p:selectOneMenu id="idCiudad" value="#{proveedorController.selected.idCiudad}" required="true" requiredMessage="#{bundle.EditProveedorRequiredMessage_idCiudad}">
+                            <f:selectItems value="#{ciudadController.itemsAvailableSelectOne}"
+                                           var="idCiudadItem"
+                                           itemValue="#{idCiudadItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{proveedorController.create}" value="#{bundle.Save}" update="display,:ProveedorListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProveedorCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProveedorCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

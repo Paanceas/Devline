@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoIdentificacionCreateDlg" widgetVar="TipoIdentificacionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTipoIdentificacionTitle}">
+            <h:form id="TipoIdentificacionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tipoIdentificacionController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTipoIdentificacionLabel_idTipoIdentificacion}" for="idTipoIdentificacion" />
+                        <p:inputText id="idTipoIdentificacion" value="#{tipoIdentificacionController.selected.idTipoIdentificacion}" title="#{bundle.CreateTipoIdentificacionTitle_idTipoIdentificacion}" required="true" requiredMessage="#{bundle.CreateTipoIdentificacionRequiredMessage_idTipoIdentificacion}"/>
+                        <p:outputLabel value="#{bundle.CreateTipoIdentificacionLabel_tipoIdentificacion}" for="tipoIdentificacion" />
+                        <p:inputText id="tipoIdentificacion" value="#{tipoIdentificacionController.selected.tipoIdentificacion}" title="#{bundle.CreateTipoIdentificacionTitle_tipoIdentificacion}" required="true" requiredMessage="#{bundle.CreateTipoIdentificacionRequiredMessage_tipoIdentificacion}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoIdentificacionController.create}" value="#{bundle.Save}" update="display,:TipoIdentificacionListForm:datalist,:growl" oncomplete="handleSubmit(args,'TipoIdentificacionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TipoIdentificacionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

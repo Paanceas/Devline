@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CotizacionHasMaterialViewDlg" widgetVar="CotizacionHasMaterialViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewCotizacionHasMaterialTitle}">
+            <h:form id="CotizacionHasMaterialViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cotizacionHasMaterialController.selected != null}">
+                        <h:outputText value="#{bundle.ViewCotizacionHasMaterialLabel_idCotizacionHasMaterial}"/>
+                        <h:outputText value="#{cotizacionHasMaterialController.selected.idCotizacionHasMaterial}" title="#{bundle.ViewCotizacionHasMaterialTitle_idCotizacionHasMaterial}"/>
+                        <h:outputText value="#{bundle.ViewCotizacionHasMaterialLabel_precio}"/>
+                        <h:outputText value="#{cotizacionHasMaterialController.selected.precio}" title="#{bundle.ViewCotizacionHasMaterialTitle_precio}"/>
+                        <h:outputText value="#{bundle.ViewCotizacionHasMaterialLabel_cantidad}"/>
+                        <h:outputText value="#{cotizacionHasMaterialController.selected.cantidad}" title="#{bundle.ViewCotizacionHasMaterialTitle_cantidad}"/>
+                        <h:outputText value="#{bundle.ViewCotizacionHasMaterialLabel_descripcion}"/>
+                        <h:outputText value="#{cotizacionHasMaterialController.selected.descripcion}" title="#{bundle.ViewCotizacionHasMaterialTitle_descripcion}"/>
+                        <h:outputText value="#{bundle.ViewCotizacionHasMaterialLabel_idCotizacion}"/>
+                        <h:outputText value="#{cotizacionHasMaterialController.selected.idCotizacion}" title="#{bundle.ViewCotizacionHasMaterialTitle_idCotizacion}"/>
+                        <h:outputText value="#{bundle.ViewCotizacionHasMaterialLabel_idMaterial}"/>
+                        <h:outputText value="#{cotizacionHasMaterialController.selected.idMaterial}" title="#{bundle.ViewCotizacionHasMaterialTitle_idMaterial}"/>
+                        <h:outputText value="#{bundle.ViewCotizacionHasMaterialLabel_idTipoUniMedida}"/>
+                        <h:outputText value="#{cotizacionHasMaterialController.selected.idTipoUniMedida}" title="#{bundle.ViewCotizacionHasMaterialTitle_idTipoUniMedida}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="CotizacionHasMaterialViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

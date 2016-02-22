@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CotizacionEditDlg" widgetVar="CotizacionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCotizacionTitle}">
+            <h:form id="CotizacionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cotizacionController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCotizacionLabel_idCotizacion}" for="idCotizacion" />
+                        <p:inputText id="idCotizacion" value="#{cotizacionController.selected.idCotizacion}" title="#{bundle.EditCotizacionTitle_idCotizacion}" required="true" requiredMessage="#{bundle.EditCotizacionRequiredMessage_idCotizacion}"/>
+                        <p:outputLabel value="#{bundle.EditCotizacionLabel_fechaCotizacion}" for="fechaCotizacion" />
+                        <p:calendar id="fechaCotizacion" pattern="MM/dd/yyyy" value="#{cotizacionController.selected.fechaCotizacion}" title="#{bundle.EditCotizacionTitle_fechaCotizacion}" required="true" requiredMessage="#{bundle.EditCotizacionRequiredMessage_fechaCotizacion}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCotizacionLabel_notaInicio}" for="notaInicio" />
+                        <p:inputText id="notaInicio" value="#{cotizacionController.selected.notaInicio}" title="#{bundle.EditCotizacionTitle_notaInicio}" />
+                        <p:outputLabel value="#{bundle.EditCotizacionLabel_iva}" for="iva" />
+                        <p:inputText id="iva" value="#{cotizacionController.selected.iva}" title="#{bundle.EditCotizacionTitle_iva}" required="true" requiredMessage="#{bundle.EditCotizacionRequiredMessage_iva}"/>
+                        <p:outputLabel value="#{bundle.EditCotizacionLabel_notaFinal}" for="notaFinal" />
+                        <p:inputText id="notaFinal" value="#{cotizacionController.selected.notaFinal}" title="#{bundle.EditCotizacionTitle_notaFinal}" required="true" requiredMessage="#{bundle.EditCotizacionRequiredMessage_notaFinal}"/>
+                        <p:outputLabel value="#{bundle.EditCotizacionLabel_eliminar}" for="eliminar" />
+                        <p:selectBooleanCheckbox id="eliminar" value="#{cotizacionController.selected.eliminar}" required="true" requiredMessage="#{bundle.EditCotizacionRequiredMessage_eliminar}"/>
+                        <p:outputLabel value="#{bundle.EditCotizacionLabel_idCliente}" for="idCliente" />
+                        <p:selectOneMenu id="idCliente" value="#{cotizacionController.selected.idCliente}" required="true" requiredMessage="#{bundle.EditCotizacionRequiredMessage_idCliente}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"
+                                           var="idClienteItem"
+                                           itemValue="#{idClienteItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cotizacionController.update}" value="#{bundle.Save}" update="display,:CotizacionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CotizacionEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CotizacionEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

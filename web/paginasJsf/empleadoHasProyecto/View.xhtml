@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmpleadoHasProyectoViewDlg" widgetVar="EmpleadoHasProyectoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEmpleadoHasProyectoTitle}">
+            <h:form id="EmpleadoHasProyectoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{empleadoHasProyectoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewEmpleadoHasProyectoLabel_idEmpleadoHasProyecto}"/>
+                        <h:outputText value="#{empleadoHasProyectoController.selected.idEmpleadoHasProyecto}" title="#{bundle.ViewEmpleadoHasProyectoTitle_idEmpleadoHasProyecto}"/>
+                        <h:outputText value="#{bundle.ViewEmpleadoHasProyectoLabel_idEmpleado}"/>
+                        <h:outputText value="#{empleadoHasProyectoController.selected.idEmpleado}" title="#{bundle.ViewEmpleadoHasProyectoTitle_idEmpleado}"/>
+                        <h:outputText value="#{bundle.ViewEmpleadoHasProyectoLabel_idProyecto}"/>
+                        <h:outputText value="#{empleadoHasProyectoController.selected.idProyecto}" title="#{bundle.ViewEmpleadoHasProyectoTitle_idProyecto}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="EmpleadoHasProyectoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

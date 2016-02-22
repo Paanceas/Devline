@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/lumenBootstrap.min.css"/>
+        <h:outputStylesheet name="./css/panelAdmin.css"/>
+        <h:outputStylesheet name="./css/font-awesome.min.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="UTF-8"/>
+        <title><ui:insert name="title">Plantilla Devline</ui:insert></title>
+    </h:head>
+
+    <h:body>
+        <p:growl id="growl" autoUpdate="true" sticky="true"/>
+        <div id="top">
+            <ui:insert name="top">
+                <nav class="navbar navbar-default" role="navigation">
+                    <!-- El logotipo y el icono que despliega el menú se agrupan
+                         para mostrarlos mejor en los dispositivos móviles -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target=".navbar-ex1-collapse">
+                            <span class="sr-only">Desplegar navegación</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="Panel.xhtml"><h:graphicImage value="/resources/img/devline.png" class="img"/></a>
+                    </div>
+
+                    <!-- Agrupar los enlaces de navegación, los formularios y cualquier
+                         otro elemento que se pueda ocultar al minimizar la barra -->
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><div class="hover"><a><h:form><p:commandButton actionListener="#{usuarioController.logout()}" action="/faces/login.xhtml?faces-redirect=true" value="Salir" class="btn btn-link"><i class="fa fa-sign-out"/></p:commandButton></h:form></a></div></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a><i title="Online" class="fa fa-circle verde"></i> <h:outputText value=" #{usuarioController.selected.nombreUsuario}"/><small><cite title="Source Title"><h:outputLabel value="#{usuarioController.selected.tipoRoll.tipoRoll}"/></cite></small></a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </ui:insert>
+        </div>
+        <div class="body_dev">
+            <div class="menu_dev">
+                <ui:insert name="left">
+                    <div class="contenedor-menu">
+                        <ul class="menu">
+                            <li><a href="#">Modulo Adquisición <i class="icono derecha fa fa-chevron-down"/></a>
+                                <ul>
+                                    <li><a href="#">Registrar <i class="icono izquierda fa fa-plus"></i></a></li>
+                                    <li><a href="#">Consultar <i class="icono izquierda fa fa-search"></i></a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Modulo Cliente <i class="icono derecha fa fa-chevron-down"/></a>
+                                <ul>
+                                    <li><a href="#">Registrar <i class="icono izquierda fa fa-plus"></i></a></li>
+                                    <li><a href="#">Consultar <i class="icono izquierda fa fa-search"></i></a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Modulo Empleado <i class="icono derecha fa fa-chevron-down"/></a>
+                                <ul>
+                                    <li><a href="#">Registrar <i class="icono izquierda fa fa-plus"></i></a></li>
+                                    <li><a href="#">Consultar <i class="icono izquierda fa fa-search"></i></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </ui:insert>
+            </div>
+            <div class="panel_dev">
+                <div class="container-fluid">
+                    <ui:insert name="content">Content</ui:insert>
+                </div>
+            </div>
+        </div>
+         <footer id="footer">
+            <div class="container">
+                <p class="text-muted"><ui:insert name="bottom">Copyright <i class="fa fa-copyright"/> Todos los Derechos Reservados</ui:insert></p>
+            </div>
+        </footer>
+        <script src="../resources/js/bootstrap.min.js"></script>
+        <script src="../resources/js/main.js"></script>
+    </h:body>
+
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UbicacionViewDlg" widgetVar="UbicacionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUbicacionTitle}">
+            <h:form id="UbicacionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ubicacionController.selected != null}">
+                        <h:outputText value="#{bundle.ViewUbicacionLabel_idUbicacion}"/>
+                        <h:outputText value="#{ubicacionController.selected.idUbicacion}" title="#{bundle.ViewUbicacionTitle_idUbicacion}"/>
+                        <h:outputText value="#{bundle.ViewUbicacionLabel_nombreUbicacion}"/>
+                        <h:outputText value="#{ubicacionController.selected.nombreUbicacion}" title="#{bundle.ViewUbicacionTitle_nombreUbicacion}"/>
+                        <h:outputText value="#{bundle.ViewUbicacionLabel_idPais}"/>
+                        <h:outputText value="#{ubicacionController.selected.idPais}" title="#{bundle.ViewUbicacionTitle_idPais}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="UbicacionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

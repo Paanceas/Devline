@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CotizacionHasMaterialCreateDlg" widgetVar="CotizacionHasMaterialCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCotizacionHasMaterialTitle}">
+            <h:form id="CotizacionHasMaterialCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cotizacionHasMaterialController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateCotizacionHasMaterialLabel_idCotizacionHasMaterial}" for="idCotizacionHasMaterial" />
+                        <p:inputText id="idCotizacionHasMaterial" value="#{cotizacionHasMaterialController.selected.idCotizacionHasMaterial}" title="#{bundle.CreateCotizacionHasMaterialTitle_idCotizacionHasMaterial}" required="true" requiredMessage="#{bundle.CreateCotizacionHasMaterialRequiredMessage_idCotizacionHasMaterial}"/>
+                        <p:outputLabel value="#{bundle.CreateCotizacionHasMaterialLabel_precio}" for="precio" />
+                        <p:inputText id="precio" value="#{cotizacionHasMaterialController.selected.precio}" title="#{bundle.CreateCotizacionHasMaterialTitle_precio}" required="true" requiredMessage="#{bundle.CreateCotizacionHasMaterialRequiredMessage_precio}"/>
+                        <p:outputLabel value="#{bundle.CreateCotizacionHasMaterialLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{cotizacionHasMaterialController.selected.cantidad}" title="#{bundle.CreateCotizacionHasMaterialTitle_cantidad}" required="true" requiredMessage="#{bundle.CreateCotizacionHasMaterialRequiredMessage_cantidad}"/>
+                        <p:outputLabel value="#{bundle.CreateCotizacionHasMaterialLabel_descripcion}" for="descripcion" />
+                        <p:inputText id="descripcion" value="#{cotizacionHasMaterialController.selected.descripcion}" title="#{bundle.CreateCotizacionHasMaterialTitle_descripcion}" />
+                        <p:outputLabel value="#{bundle.CreateCotizacionHasMaterialLabel_idCotizacion}" for="idCotizacion" />
+                        <p:selectOneMenu id="idCotizacion" value="#{cotizacionHasMaterialController.selected.idCotizacion}" required="true" requiredMessage="#{bundle.EditCotizacionHasMaterialRequiredMessage_idCotizacion}">
+                            <f:selectItems value="#{cotizacionController.itemsAvailableSelectOne}"
+                                           var="idCotizacionItem"
+                                           itemValue="#{idCotizacionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateCotizacionHasMaterialLabel_idMaterial}" for="idMaterial" />
+                        <p:selectOneMenu id="idMaterial" value="#{cotizacionHasMaterialController.selected.idMaterial}" required="true" requiredMessage="#{bundle.EditCotizacionHasMaterialRequiredMessage_idMaterial}">
+                            <f:selectItems value="#{materialController.itemsAvailableSelectOne}"
+                                           var="idMaterialItem"
+                                           itemValue="#{idMaterialItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateCotizacionHasMaterialLabel_idTipoUniMedida}" for="idTipoUniMedida" />
+                        <p:selectOneMenu id="idTipoUniMedida" value="#{cotizacionHasMaterialController.selected.idTipoUniMedida}" required="true" requiredMessage="#{bundle.EditCotizacionHasMaterialRequiredMessage_idTipoUniMedida}">
+                            <f:selectItems value="#{tipoUniMedidaController.itemsAvailableSelectOne}"
+                                           var="idTipoUniMedidaItem"
+                                           itemValue="#{idTipoUniMedidaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cotizacionHasMaterialController.create}" value="#{bundle.Save}" update="display,:CotizacionHasMaterialListForm:datalist,:growl" oncomplete="handleSubmit(args,'CotizacionHasMaterialCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CotizacionHasMaterialCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

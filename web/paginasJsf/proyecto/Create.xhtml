@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProyectoCreateDlg" widgetVar="ProyectoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProyectoTitle}">
+            <h:form id="ProyectoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{proyectoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateProyectoLabel_idProyecto}" for="idProyecto" />
+                        <p:inputText id="idProyecto" value="#{proyectoController.selected.idProyecto}" title="#{bundle.CreateProyectoTitle_idProyecto}" required="true" requiredMessage="#{bundle.CreateProyectoRequiredMessage_idProyecto}"/>
+                        <p:outputLabel value="#{bundle.CreateProyectoLabel_nombreProyecto}" for="nombreProyecto" />
+                        <p:inputText id="nombreProyecto" value="#{proyectoController.selected.nombreProyecto}" title="#{bundle.CreateProyectoTitle_nombreProyecto}" required="true" requiredMessage="#{bundle.CreateProyectoRequiredMessage_nombreProyecto}"/>
+                        <p:outputLabel value="#{bundle.CreateProyectoLabel_codigoProyecto}" for="codigoProyecto" />
+                        <p:inputText id="codigoProyecto" value="#{proyectoController.selected.codigoProyecto}" title="#{bundle.CreateProyectoTitle_codigoProyecto}" required="true" requiredMessage="#{bundle.CreateProyectoRequiredMessage_codigoProyecto}"/>
+                        <p:outputLabel value="#{bundle.CreateProyectoLabel_descripcionProyecto}" for="descripcionProyecto" />
+                        <p:inputText id="descripcionProyecto" value="#{proyectoController.selected.descripcionProyecto}" title="#{bundle.CreateProyectoTitle_descripcionProyecto}" />
+                        <p:outputLabel value="#{bundle.CreateProyectoLabel_fechaInicioProyecto}" for="fechaInicioProyecto" />
+                        <p:calendar id="fechaInicioProyecto" pattern="MM/dd/yyyy" value="#{proyectoController.selected.fechaInicioProyecto}" title="#{bundle.EditProyectoTitle_fechaInicioProyecto}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateProyectoLabel_fechaFinalProyecto}" for="fechaFinalProyecto" />
+                        <p:calendar id="fechaFinalProyecto" pattern="MM/dd/yyyy" value="#{proyectoController.selected.fechaFinalProyecto}" title="#{bundle.EditProyectoTitle_fechaFinalProyecto}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateProyectoLabel_valorAnticipado}" for="valorAnticipado" />
+                        <p:inputText id="valorAnticipado" value="#{proyectoController.selected.valorAnticipado}" title="#{bundle.CreateProyectoTitle_valorAnticipado}" required="true" requiredMessage="#{bundle.CreateProyectoRequiredMessage_valorAnticipado}"/>
+                        <p:outputLabel value="#{bundle.CreateProyectoLabel_valorTotalProyecto}" for="valorTotalProyecto" />
+                        <p:inputText id="valorTotalProyecto" value="#{proyectoController.selected.valorTotalProyecto}" title="#{bundle.CreateProyectoTitle_valorTotalProyecto}" required="true" requiredMessage="#{bundle.CreateProyectoRequiredMessage_valorTotalProyecto}"/>
+                        <p:outputLabel value="#{bundle.CreateProyectoLabel_eliminar}" for="eliminar" />
+                        <p:selectBooleanCheckbox id="eliminar" value="#{proyectoController.selected.eliminar}" required="true" requiredMessage="#{bundle.EditProyectoRequiredMessage_eliminar}"/>
+                        <p:outputLabel value="#{bundle.CreateProyectoLabel_idCotizacion}" for="idCotizacion" />
+                        <p:selectOneMenu id="idCotizacion" value="#{proyectoController.selected.idCotizacion}" required="true" requiredMessage="#{bundle.EditProyectoRequiredMessage_idCotizacion}">
+                            <f:selectItems value="#{cotizacionController.itemsAvailableSelectOne}"
+                                           var="idCotizacionItem"
+                                           itemValue="#{idCotizacionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateProyectoLabel_idEstado}" for="idEstado" />
+                        <p:selectOneMenu id="idEstado" value="#{proyectoController.selected.idEstado}" required="true" requiredMessage="#{bundle.EditProyectoRequiredMessage_idEstado}">
+                            <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
+                                           var="idEstadoItem"
+                                           itemValue="#{idEstadoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{proyectoController.create}" value="#{bundle.Save}" update="display,:ProyectoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProyectoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProyectoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
