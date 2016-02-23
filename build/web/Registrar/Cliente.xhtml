@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../Plantilla/DevPlantilla.xhtml">
+
+            <ui:define name="title">
+                Registrar Cliente
+            </ui:define>
+
+            <ui:define name="content">
+                <ul class="breadcrumb">
+                    <li><a href="../Panel.xhtml">Home</a></li>
+                    <li><a href="">Registro</a></li>
+                    <li class="active">Cliente</li>
+                </ul>
+                <h1><span>Registro</span><span style="color: #FF901A;"> Cliente</span></h1>
+                <hr/>
+                <div class="center_dev">
+                    <h:form id="nuevoCliente">
+                        <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Campos Obligatorios</strong></div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateClienteLabel_nombre}" for="nombre" />
+                            <div class="input-group">
+                                <p:inputText id="nombre" class="form-control" value="#{clienteController.selected.nombre}" title="#{bundle.CreateClienteTitle_nombre}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_nombre}"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateClienteLabel_idTipoIdentificacion}" for="idTipoIdentificacion" />
+                            <div class="input-group">
+                                <h:selectOneMenu id="idTipoIdentificacion" class="form-control" value="#{clienteController.selected.idTipoIdentificacion}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_idTipoIdentificacion}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione Una Opción" itemValue="#{null}"/>
+                                    <f:selectItems value="#{tipoIdentificacionController.itemsAvailableSelectOne}"
+                                                   var="idTipoIdentificacionItem"
+                                                   itemValue="#{idTipoIdentificacionItem}"/>
+                                </h:selectOneMenu>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateClienteLabel_identificacion}" for="identificacion" />
+                            <div class="input-group">
+                                <p:inputText id="identificacion" type="number" class="form-control" value="#{clienteController.selected.identificacion}" title="#{bundle.CreateClienteTitle_identificacion}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_identificacion}"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateClienteLabel_telefono}" for="telefono" />
+                            <div class="input-group">
+                                <p:inputMask mask="999-9999" id="telefono" class="form-control" value="#{clienteController.selected.telefono}" title="#{bundle.CreateClienteTitle_telefono}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_telefono}"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateClienteLabel_celular}" for="celular" />
+                            <div class="input-group">
+                                <p:inputMask mask="(999) 999-9999" id="celular" class="form-control" value="#{clienteController.selected.celular}" title="#{bundle.CreateClienteTitle_celular}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_celular}"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateClienteLabel_direccion}" for="direccion" />
+                            <div class="input-group">
+                                <p:inputText id="direccion" class="form-control" value="#{clienteController.selected.direccion}" title="#{bundle.CreateClienteTitle_direccion}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_direccion}"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateClienteLabel_idCiudad}" for="idTipoIdentificacion" />
+                            <div class="input-group">
+                                <h:selectOneMenu id="idCiudad" class="form-control" value="#{clienteController.selected.idCiudad}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_idCiudad}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione Una Opción" itemValue="#{null}"/>
+                                    <f:selectItems value="#{ciudadController.itemsAvailableSelectOne}"
+                                                   var="idCiudad"
+                                                   itemValue="#{idCiudad}"/>
+                                </h:selectOneMenu>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateClienteLabel_correo}" for="correo" />
+                            <p:inputText id="correo" class="form-control" value="#{clienteController.selected.correo}" title="#{bundle.CreateClienteTitle_correo}"/>
+                        </div>
+
+                        <p:commandButton class="btn btn-lg orange" actionListener="#{clienteController.create}" action="/faces/Registrar/Cliente.xhtml?faces-redirect=true" value="#{bundle.Save}" update=":growl"/>
+                        <input type="reset" value="Limpiar" class="btn btn-lg orange"></input>
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

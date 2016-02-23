@@ -120,7 +120,7 @@ public class Pais implements Serializable {
 
     @Override
     public String toString() {
-        return "co.com.devline.eo.Pais[ idPais=" + idPais + " ]";
+        return nombrePais + "-" + abreviatura;
     }
     
 }

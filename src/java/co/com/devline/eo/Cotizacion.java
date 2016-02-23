@@ -190,7 +190,7 @@ public class Cotizacion implements Serializable {
 
     @Override
     public String toString() {
-        return "co.com.devline.eo.Cotizacion[ idCotizacion=" + idCotizacion + " ]";
+        return fechaCotizacion + " " + idCliente.getNombre();
     }
     
 }

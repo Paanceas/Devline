@@ -142,7 +142,7 @@ public class TipoUniMedida implements Serializable {
 
     @Override
     public String toString() {
-        return "co.com.devline.eo.TipoUniMedida[ idTipoUniMedida=" + idTipoUniMedida + " ]";
+        return nombreTipoUniMedida + "-" + abreviatura;
     }
     
 }

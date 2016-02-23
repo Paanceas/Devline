@@ -145,6 +145,14 @@ public class UsuarioController implements Serializable {
         return getFacade().findAll();
     }
 
+    public Usuario getUsuarioLogueado() {
+        return usuarioLogueado;
+    }
+
+    public void setUsuarioLogueado(Usuario usuarioLogueado) {
+        this.usuarioLogueado = usuarioLogueado;
+    }
+
     @FacesConverter(forClass = Usuario.class)
     public static class UsuarioControllerConverter implements Converter {
 

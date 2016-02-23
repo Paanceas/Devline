@@ -39,6 +39,7 @@ a{
     width: 18%;
 }
 .panel_dev{
+    padding: 15px;
     width: 80%;
 }
 
@@ -124,7 +125,10 @@ a{
   margin-top: 14.5px;
   text-align: center;
 }
-
+.orange:hover{
+    background-color: #FF901A !important;
+    color: #fff !important;
+}
 /*Menu en acordion*/
 .contenedor-menu{
     border-right: 5px solid #e7e7e7;

@@ -228,7 +228,7 @@ public class Proyecto implements Serializable {
 
     @Override
     public String toString() {
-        return "co.com.devline.eo.Proyecto[ idProyecto=" + idProyecto + " ]";
+        return nombreProyecto + " " + codigoProyecto;
     }
     
 }

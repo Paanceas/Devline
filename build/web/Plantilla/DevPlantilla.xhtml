@@ -40,7 +40,7 @@
                             <li><div class="hover"><a><h:form><p:commandButton actionListener="#{usuarioController.logout()}" action="/faces/login.xhtml?faces-redirect=true" value="Salir" class="btn btn-link"><i class="fa fa-sign-out"/></p:commandButton></h:form></a></div></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a><i title="Online" class="fa fa-circle verde"></i> <h:outputText value=" #{usuarioController.selected.nombreUsuario}"/><small><cite title="Source Title"><h:outputLabel value="#{usuarioController.selected.tipoRoll.tipoRoll}"/></cite></small></a></li>
+                            <li><a><i title="Online" class="fa fa-circle verde"></i> <h:outputText value=" #{usuarioController.usuarioLogueado.nombreUsuario}"/><small><cite title="Source Title"><h:outputLabel value="#{usuarioController.usuarioLogueado.tipoRoll.tipoRoll}"/></cite></small></a></li>
                         </ul>
                     </div>
                 </nav>
@@ -49,28 +49,30 @@
         <div class="body_dev">
             <div class="menu_dev">
                 <ui:insert name="left">
-                    <div class="contenedor-menu">
-                        <ul class="menu">
-                            <li><a href="#">Modulo Adquisición <i class="icono derecha fa fa-chevron-down"/></a>
-                                <ul>
-                                    <li><a href="#">Registrar <i class="icono izquierda fa fa-plus"></i></a></li>
-                                    <li><a href="#">Consultar <i class="icono izquierda fa fa-search"></i></a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Modulo Cliente <i class="icono derecha fa fa-chevron-down"/></a>
-                                <ul>
-                                    <li><a href="#">Registrar <i class="icono izquierda fa fa-plus"></i></a></li>
-                                    <li><a href="#">Consultar <i class="icono izquierda fa fa-search"></i></a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Modulo Empleado <i class="icono derecha fa fa-chevron-down"/></a>
-                                <ul>
-                                    <li><a href="#">Registrar <i class="icono izquierda fa fa-plus"></i></a></li>
-                                    <li><a href="#">Consultar <i class="icono izquierda fa fa-search"></i></a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+                    <h:form>
+                        <div class="contenedor-menu">
+                            <ul class="menu">
+                                <li><a href="#">Modulo Adquisición <i class="icono derecha fa fa-chevron-down"/></a>
+                                    <ul>
+                                        <li><a href="#">Registrar <i class="icono izquierda fa fa-plus"></i></a></li>
+                                        <li><a href="#">Consultar <i class="icono izquierda fa fa-search"></i></a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Modulo Cliente <i class="icono derecha fa fa-chevron-down"/></a>
+                                    <ul>
+                                        <li><h:commandLink rendered="#{usuarioController.usuarioLogueado!=null and usuarioController.usuarioLogueado.tipoRoll.tipoRoll eq 'Administrador'}" actionListener="#{clienteController.prepareCreate()}" action="/faces/Registrar/Cliente.xhtml?faces-redirect=true" value=" Registrar" ><i class="icono izquierda fa fa-plus"></i></h:commandLink></li>
+                                        <li><h:commandLink action="/faces/Consulta/Cliente/Cliente.xhtml?faces-redirect=true" value=" Consultar"><i class="icono izquierda fa fa-search"></i></h:commandLink></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Modulo Empleado <i class="icono derecha fa fa-chevron-down"/></a>
+                                    <ul>
+                                        <li><a href="#">Registrar <i class="icono izquierda fa fa-plus"></i></a></li>
+                                        <li><a href="#">Consultar <i class="icono izquierda fa fa-search"></i></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </h:form>
                 </ui:insert>
             </div>
             <div class="panel_dev">
@@ -79,13 +81,13 @@
                 </div>
             </div>
         </div>
-         <footer id="footer">
+        <footer id="footer">
             <div class="container">
                 <p class="text-muted"><ui:insert name="bottom">Copyright <i class="fa fa-copyright"/> Todos los Derechos Reservados</ui:insert></p>
             </div>
         </footer>
-        <script src="../resources/js/bootstrap.min.js"></script>
-        <script src="../resources/js/main.js"></script>
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <h:outputScript library="js" name="main.js" />
     </h:body>
 
 </html>

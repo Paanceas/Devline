@@ -39,7 +39,7 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
         try {
             int query = em.createQuery("UPDATE Cliente c SET c.eliminar = 1 WHERE c.idCliente = :id").setParameter("id", cliente.getIdCliente()).executeUpdate();
         } catch (Exception e) {
-            System.out.println("error al hacer borrado logico cleinte");
+            System.out.println("error al hacer borrado lógico cliente");
             e.printStackTrace();
         }
     }

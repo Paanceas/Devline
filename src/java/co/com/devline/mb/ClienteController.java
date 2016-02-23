@@ -19,7 +19,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import static org.primefaces.behavior.confirm.ConfirmBehavior.PropertyKeys.message;
 
 @ManagedBean(name = "clienteController")
 @SessionScoped
@@ -59,10 +58,12 @@ public class ClienteController implements Serializable {
     }
 
     public void create() {
+        System.out.println(selected.getIdCliente() + selected.getNombre()+ selected.getIdentificacion());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ClienteCreated"));
         if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+            listaCliente = null;    // Invalidate list of items to trigger re-query.
         }
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
     }
 
     public void update() {
@@ -83,15 +84,17 @@ public class ClienteController implements Serializable {
         }
         return items;
     }
-    public List<Cliente> listar(){
+
+    public List<Cliente> listar() {
         listaCliente = ejbFacade.listarClientes();
         return listaCliente;
     }
-    public void borradoLogico(){
+
+    public void borradoLogico() {
         ejbFacade.borrar(selected);
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Cliente Eliminado") );
-        
+        context.addMessage(null, new FacesMessage("Cliente Eliminado"));
+
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
@@ -105,7 +108,7 @@ public class ClienteController implements Serializable {
                 }
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
-                String msg = "";
+                String msg = "error en el persisten";
                 Throwable cause = ex.getCause();
                 if (cause != null) {
                     msg = cause.getLocalizedMessage();

@@ -108,7 +108,7 @@ public class Estado implements Serializable {
 
     @Override
     public String toString() {
-        return "co.com.devline.eo.Estado[ idEstado=" + idEstado + " ]";
+        return tipoEstado;
     }
     
 }

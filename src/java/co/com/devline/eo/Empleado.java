@@ -312,7 +312,7 @@ public class Empleado implements Serializable {
 
     @Override
     public String toString() {
-        return "co.com.devline.eo.Empleado[ idEmpleado=" + idEmpleado + " ]";
+        return nombre + " " + documento;
     }
     
 }

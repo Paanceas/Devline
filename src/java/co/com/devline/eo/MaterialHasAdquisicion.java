@@ -107,7 +107,7 @@ public class MaterialHasAdquisicion implements Serializable {
 
     @Override
     public String toString() {
-        return "co.com.devline.eo.MaterialHasAdquisicion[ idMaterialHasAdquisicion=" + idMaterialHasAdquisicion + " ]";
+        return idMaterialHasAdquisicion + " " + idMaterial.getNombreMaterial();
     }
     
 }

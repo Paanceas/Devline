@@ -96,7 +96,7 @@ public class EmpleadoHasProyecto implements Serializable {
 
     @Override
     public String toString() {
-        return "co.com.devline.eo.EmpleadoHasProyecto[ idEmpleadoHasProyecto=" + idEmpleadoHasProyecto + " ]";
+        return idEmpleadoHasProyecto + " " + idProyecto.getNombreProyecto();
     }
     
 }

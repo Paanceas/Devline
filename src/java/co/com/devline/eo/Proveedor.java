@@ -212,7 +212,7 @@ public class Proveedor implements Serializable {
 
     @Override
     public String toString() {
-        return "co.com.devline.eo.Proveedor[ idProveedor=" + idProveedor + " ]";
+        return nombre + " " + identificacion;
     }
     
 }

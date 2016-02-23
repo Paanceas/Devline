@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../Plantilla/DevPlantilla.xhtml">
+
+            <ui:define name="title">
+                Clientes
+            </ui:define>
+
+            <ui:define name="content">
+                 <ul class="breadcrumb">
+                    <li><a href="../../Panel.xhtml">Home</a></li>
+                    <li><a >Consulta</a></li>
+                    <li class="active">Cliente</li>
+                </ul>
+                <h:form id="ClienteListForm">
+                    <p:dataTable id="datalist" value="#{clienteController.listar()}" var="item"
+                                 selectionMode="single" selection="#{clienteController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idCliente}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20"
+                                 reflow="true"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column style="width:22px">
+                            <f:facet name="header">
+                                <h:outputText value="#"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCliente}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_nombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_identificacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.identificacion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_telefono}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.telefono}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_celular}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.celular}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_direccion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.direccion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_correo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.correo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_idCiudad}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCiudad}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListClienteTitle_idTipoIdentificacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idTipoIdentificacion}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton class="orange" id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{clienteController.prepareCreate}" action="/faces/Registrar/Cliente.xhtml?faces-redirect=true"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ClienteViewForm" oncomplete="PF('ClienteViewDialog').show()" disabled="#{empty clienteController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ClienteEditForm" oncomplete="PF('ClienteEditDialog').show()" disabled="#{empty clienteController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{clienteController.borradoLogico()}" update=":growl,datalist" disabled="#{empty clienteController.selected}">
+                                <p:confirm message="¿Seguro de Eliminar este Cliente?" header="Aviso" icon="ui-icon-alert"/>
+                            </p:commandButton>
+                            <p:confirmDialog global="true">
+                                <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
+                                <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+                            </p:confirmDialog>
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
+
+                <ui:include src="Edit.xhtml"/>
+                <ui:include src="View.xhtml"/>
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>
