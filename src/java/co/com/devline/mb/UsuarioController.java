@@ -30,11 +30,12 @@ public class UsuarioController implements Serializable {
     private List<Usuario> items = null;
     private Usuario selected = new Usuario();
     private Usuario usuarioLogueado;
+    private String password = null;
 
     public UsuarioController() {
     }
-
-    public String validar() {
+    
+        public String validar() {
         selected.setClave(DigestUtils.sha256Hex(selected.getClave()));
         this.usuarioLogueado = ejbFacade.valida(selected.getNombreUsuario(), selected.getClave());
         if (this.usuarioLogueado != null) {
@@ -58,6 +59,21 @@ public class UsuarioController implements Serializable {
     public void logout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
     }
+    
+    public boolean validarSession(){
+        FacesContext curre = FacesContext.getCurrentInstance();
+        if(this.usuarioLogueado == null){
+            try {
+                curre.getExternalContext().redirect("/Devline/faces/login.xhtml");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //curre.getApplication().getNavigationHandler().handleNavigation(curre, "login.xhtml", null);   
+            return false;
+        }
+        return true;
+    }
+    
 
     public Usuario getSelected() {
         return selected;
@@ -84,14 +100,19 @@ public class UsuarioController implements Serializable {
     }
 
     public void create() {
+        this.selected.setClave(DigestUtils.sha256Hex(password));
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        password = null;
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
     }
 
     public void update() {
+        this.selected.setClave(DigestUtils.sha256Hex(password));
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
+        password = null;
     }
 
     public void destroy() {
@@ -151,6 +172,14 @@ public class UsuarioController implements Serializable {
 
     public void setUsuarioLogueado(Usuario usuarioLogueado) {
         this.usuarioLogueado = usuarioLogueado;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @FacesConverter(forClass = Usuario.class)

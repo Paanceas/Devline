@@ -130,7 +130,7 @@ public class TipoIdentificacion implements Serializable {
 
     @Override
     public String toString() {
-        return tipoIdentificacion;
+        return "co.com.devline.eo.TipoIdentificacion[ idTipoIdentificacion=" + idTipoIdentificacion + " ]";
     }
     
 }

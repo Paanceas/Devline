@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "proveedor")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Proveedor.findAll", query = "SELECT p FROM Proveedor p"),
+    @NamedQuery(name = "Proveedor.findAll", query = "SELECT p FROM Proveedor p WHERE p.eliminar = 0"),
     @NamedQuery(name = "Proveedor.findByIdProveedor", query = "SELECT p FROM Proveedor p WHERE p.idProveedor = :idProveedor"),
     @NamedQuery(name = "Proveedor.findByNombre", query = "SELECT p FROM Proveedor p WHERE p.nombre = :nombre"),
     @NamedQuery(name = "Proveedor.findByIdentificacion", query = "SELECT p FROM Proveedor p WHERE p.identificacion = :identificacion"),
@@ -212,7 +212,7 @@ public class Proveedor implements Serializable {
 
     @Override
     public String toString() {
-        return nombre + " " + identificacion;
+        return "co.com.devline.eo.Proveedor[ idProveedor=" + idProveedor + " ]";
     }
     
 }

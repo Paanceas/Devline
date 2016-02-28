@@ -108,7 +108,7 @@ public class Pension implements Serializable {
 
     @Override
     public String toString() {
-        return nombrePension;
+        return "co.com.devline.eo.Pension[ idPension=" + idPension + " ]";
     }
     
 }

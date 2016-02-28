@@ -149,7 +149,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return nombreUsuario + "-" + tipoRoll.getTipoRoll() ;
+        return "co.com.devline.eo.Usuario[ idUsuario=" + idUsuario + " ]";
     }
     
 }

@@ -1,5 +1,6 @@
 package co.com.devline.mb;
 
+import co.com.devline.eo.Cliente;
 import co.com.devline.eo.Empleado;
 import co.com.devline.mb.util.JsfUtil;
 import co.com.devline.mb.util.JsfUtil.PersistAction;
@@ -12,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -26,11 +28,26 @@ public class EmpleadoController implements Serializable {
     @EJB
     private co.com.devline.sb.EmpleadoFacade ejbFacade;
     private List<Empleado> items = null;
+    private List<Empleado> listaEmpleados = null;
     private Empleado selected;
+    //ajax count empleado
+    private Long cantEmple;
+    public void empleadosTotal() {
+        cantEmple = ejbFacade.cantEmpleados();
+    }
 
     public EmpleadoController() {
     }
+    public List<Empleado> listar() {
+        listaEmpleados= ejbFacade.listarEmpleados();
+        return listaEmpleados;
+    }
+    public void borradoLogico() {
+        ejbFacade.borrar(selected);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Cliente Eliminado"));
 
+    }
     public Empleado getSelected() {
         return selected;
     }
@@ -60,6 +77,7 @@ public class EmpleadoController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
     }
 
     public void update() {
@@ -116,6 +134,15 @@ public class EmpleadoController implements Serializable {
     public List<Empleado> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
+
+    public Long getCantEmple() {
+        return cantEmple;
+    }
+
+    public void setCantEmple(Long cantEmple) {
+        this.cantEmple = cantEmple;
+    }
+
 
     @FacesConverter(forClass = Empleado.class)
     public static class EmpleadoControllerConverter implements Converter {

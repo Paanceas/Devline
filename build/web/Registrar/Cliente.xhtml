@@ -2,9 +2,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
 
     <body>
 
@@ -15,11 +16,13 @@
             </ui:define>
 
             <ui:define name="content">
-                <ul class="breadcrumb">
-                    <li><a href="../Panel.xhtml">Home</a></li>
-                    <li><a href="">Registro</a></li>
-                    <li class="active">Cliente</li>
-                </ul>
+                <div class="migas">
+                    <ul class="breadcrumb">
+                        <li><a href="../Panel.xhtml">Home</a></li>
+                        <li><a href="">Registro</a></li>
+                        <li class="active">Cliente</li>
+                    </ul>
+                </div>
                 <h1><span>Registro</span><span style="color: #FF901A;"> Cliente</span></h1>
                 <hr/>
                 <div class="center_dev">
@@ -39,6 +42,7 @@
                                     <f:selectItem noSelectionOption="true" itemLabel="Seleccione Una Opción" itemValue="#{null}"/>
                                     <f:selectItems value="#{tipoIdentificacionController.itemsAvailableSelectOne}"
                                                    var="idTipoIdentificacionItem"
+                                                   itemLabel="#{idTipoIdentificacionItem.tipoIdentificacion}"
                                                    itemValue="#{idTipoIdentificacionItem}"/>
                                 </h:selectOneMenu>
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
@@ -72,12 +76,13 @@
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                             </div>
                         </div>
-                         <div class="form-group">
+                        <div class="form-group">
                             <p:outputLabel value="#{bundle.CreateClienteLabel_idCiudad}" for="idTipoIdentificacion" />
                             <div class="input-group">
                                 <h:selectOneMenu id="idCiudad" class="form-control" value="#{clienteController.selected.idCiudad}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_idCiudad}">
                                     <f:selectItem noSelectionOption="true" itemLabel="Seleccione Una Opción" itemValue="#{null}"/>
                                     <f:selectItems value="#{ciudadController.itemsAvailableSelectOne}"
+                                                   itemLabel="#{idCiudad.nombreCiudad}"
                                                    var="idCiudad"
                                                    itemValue="#{idCiudad}"/>
                                 </h:selectOneMenu>
@@ -86,13 +91,18 @@
                         </div>
                         <div class="form-group">
                             <p:outputLabel value="#{bundle.CreateClienteLabel_correo}" for="correo" />
-                            <p:inputText id="correo" class="form-control" value="#{clienteController.selected.correo}" title="#{bundle.CreateClienteTitle_correo}"/>
+                            <p:inputText pt:type="email" id="correo" class="form-control" value="#{clienteController.selected.correo}" title="#{bundle.CreateClienteTitle_correo}"/>
                         </div>
 
-                        <p:commandButton class="btn btn-lg orange" actionListener="#{clienteController.create}" action="/faces/Registrar/Cliente.xhtml?faces-redirect=true" value="#{bundle.Save}" update=":growl"/>
-                        <input type="reset" value="Limpiar" class="btn btn-lg orange"></input>
+                        <p:commandButton class="orange" actionListener="#{clienteController.create}" action="/faces/Registrar/Cliente.xhtml?faces-redirect=true" value="Registrar Cliente" update=":growl"/>
+                        <button type="reset" class="silver">Restaurar</button>
                     </h:form>
                 </div>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        boton();
+                    })
+                </script>
             </ui:define>
 
         </ui:composition>

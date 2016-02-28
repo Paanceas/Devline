@@ -17,6 +17,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class MaterialFacade extends AbstractFacade<Material> {
+
     @PersistenceContext(unitName = "DevlinePU")
     private EntityManager em;
 
@@ -28,9 +29,24 @@ public class MaterialFacade extends AbstractFacade<Material> {
     public MaterialFacade() {
         super(Material.class);
     }
-
-    List<Material> getListaMaterialesXIdProveedor(Integer idProveedor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//maestro detalle
+    public List<Material> getListaMaterialesXIdAdquisicion(Integer idAdquisicion) {
+        try {
+            return (List<Material>) em.createQuery("SELECT e FROM Material e, MaterialHasAdquisicion p WHERE e.idMaterial = p.idMaterial.idMaterial and p.idAdquisicion.idAdquisicion = :idAdquisicion").setParameter("idAdquisicion", idAdquisicion).getResultList();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
-    
+//maestro detalle proveedor
+       public List<Material> getListaMaterialesXIdCotizacion(Integer idMaterial) {
+        try {
+            //HACER LA QUERY--------------------------------------------------------
+            return (List<Material>) em.createQuery("SELECT m FROM Material m, ProveedorHasMaterial c WHERE m.idMaterial = c.idMaterial.idMaterial AND c.idMaterial.idMaterial = :idMaterial").setParameter("idMaterial", idMaterial).getResultList();
+        } catch (Exception ex) {
+            System.out.println("Error");
+            ex.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmpleadoEditDlg" widgetVar="EmpleadoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEmpleadoTitle}">
+            <h:form id="EmpleadoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{empleadoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_idEmpleado}" for="idEmpleado"/>
+                        <p:inputText id="idEmpleado" value="#{empleadoController.selected.idEmpleado}" title="#{bundle.EditEmpleadoTitle_idEmpleado}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_idEmpleado}" disabled="true"/>
+                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{empleadoController.selected.nombre}" title="#{bundle.EditEmpleadoTitle_nombre}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_nombre}" disabled="true"/>
+                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_documento}" for="documento" />
+                        <p:inputText id="documento" value="#{empleadoController.selected.documento}" title="#{bundle.EditEmpleadoTitle_documento}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_documento}" disabled="true" />
+                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_telefono}" for="telefono" />
+                        <p:inputText id="telefono" value="#{empleadoController.selected.telefono}" title="#{bundle.EditEmpleadoTitle_telefono}" />
+                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_celular}" for="celular" />
+                        <p:inputText id="celular" value="#{empleadoController.selected.celular}" title="#{bundle.EditEmpleadoTitle_celular}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_celular}"/>
+                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{empleadoController.selected.direccion}" title="#{bundle.EditEmpleadoTitle_direccion}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_direccion}"/>
+                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_correo}" for="correo" />
+                        <p:inputText id="correo" value="#{empleadoController.selected.correo}" title="#{bundle.EditEmpleadoTitle_correo}" />
+                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_arl}" for="arl" />
+                        <p:inputText id="arl" value="#{empleadoController.selected.arl}" title="#{bundle.EditEmpleadoTitle_arl}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_arl}"/>
+                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_fechaIngreso}" for="fechaIngreso" />
+                        <p:calendar id="fechaIngreso" pattern="MM/dd/yyyy" value="#{empleadoController.selected.fechaIngreso}" title="#{bundle.EditEmpleadoTitle_fechaIngreso}"  disabled="true"/>
+                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_fechaRetiro}" for="fechaRetiro" />
+                        <p:calendar id="fechaRetiro" pattern="MM/dd/yyyy" value="#{empleadoController.selected.fechaRetiro}" title="#{bundle.EditEmpleadoTitle_fechaRetiro}"  navigator="true"/>
+                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_idTipoIdentificacion}" for="idTipoIdentificacion" />
+                        <p:selectOneMenu id="idTipoIdentificacion" value="#{empleadoController.selected.idTipoIdentificacion}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_idTipoIdentificacion}" disabled="true">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tipoIdentificacionController.itemsAvailableSelectOne}"
+                                           var="idTipoIdentificacionItem"
+                                           itemLabel="#{idTipoIdentificacionItem.tipoIdentificacion}"
+                                           itemValue="#{idTipoIdentificacionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{empleadoController.selected.idUsuario}" disabled="true">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="idUsuarioItem"
+                                           itemLabel="#{idUsuarioItem.nombreUsuario} - #{idUsuarioItem.tipoRoll.tipoRoll}"
+                                           itemValue="#{idUsuarioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_idCargo}" for="idCargo" />
+                        <p:selectOneMenu id="idCargo" value="#{empleadoController.selected.idCargo}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_idCargo}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{cargoController.itemsAvailableSelectOne}"
+                                           var="idCargoItem"
+                                           itemLabel="#{idCargoItem.nombreCargo}"
+                                           itemValue="#{idCargoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_idSalud}" for="idSalud" />
+                        <p:selectOneMenu id="idSalud" value="#{empleadoController.selected.idSalud}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_idSalud}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{saludController.itemsAvailableSelectOne}"
+                                           var="idSaludItem"
+                                           itemLabel="#{idSaludItem.tipoSalud}"
+                                           itemValue="#{idSaludItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_idPension}" for="idPension" />
+                        <p:selectOneMenu id="idPension" value="#{empleadoController.selected.idPension}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_idPension}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{pensionController.itemsAvailableSelectOne}"
+                                           var="idPensionItem"
+                                           itemLabel="#{idPensionItem.nombrePension}"
+                                           itemValue="#{idPensionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_idCajaDeCompensacion}" for="idCajaDeCompensacion" />
+                        <p:selectOneMenu id="idCajaDeCompensacion" value="#{empleadoController.selected.idCajaDeCompensacion}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_idCajaDeCompensacion}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{cajaDeCompensacionController.itemsAvailableSelectOne}"
+                                           var="idCajaDeCompensacionItem"
+                                           itemLabel="#{idCajaDeCompensacionItem.nombreCajaDeCompensacion}"
+                                           itemValue="#{idCajaDeCompensacionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditEmpleadoLabel_idCiudad}" for="idCiudad" />
+                        <p:selectOneMenu id="idCiudad" value="#{empleadoController.selected.idCiudad}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_idCiudad}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ciudadController.itemsAvailableSelectOne}"
+                                           var="idCiudadItem"
+                                           itemLabel="(#{idCiudadItem.idUbicacion.idPais.abreviatura} ) #{idCiudadItem.idUbicacion.nombreUbicacion} - #{idCiudadItem.nombreCiudad}"
+                                           itemValue="#{idCiudadItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{empleadoController.update}" value="#{bundle.Save}" update="display,:EmpleadoListForm:datalist,:growl" oncomplete="PF('EmpleadoEditDialog').hide();"/>
+                    <p:commandButton value="#{bundle.Cancel}" immediate="true" oncomplete="PF('EmpleadoEditDialog').hide();"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

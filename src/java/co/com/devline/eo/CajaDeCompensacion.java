@@ -108,7 +108,7 @@ public class CajaDeCompensacion implements Serializable {
 
     @Override
     public String toString() {
-        return nombreCajaDeCompensacion;
+        return "co.com.devline.eo.CajaDeCompensacion[ idCajaDeCompensacion=" + idCajaDeCompensacion + " ]";
     }
     
 }

@@ -54,8 +54,6 @@ public class TipoUniMedida implements Serializable {
     private Collection<CotizacionHasMaterial> cotizacionHasMaterialCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoUniMedida")
     private Collection<Material> materialCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoUniMedida")
-    private Collection<MaterialHasAdquisicion> materialHasAdquisicionCollection;
 
     public TipoUniMedida() {
     }
@@ -111,15 +109,6 @@ public class TipoUniMedida implements Serializable {
         this.materialCollection = materialCollection;
     }
 
-    @XmlTransient
-    public Collection<MaterialHasAdquisicion> getMaterialHasAdquisicionCollection() {
-        return materialHasAdquisicionCollection;
-    }
-
-    public void setMaterialHasAdquisicionCollection(Collection<MaterialHasAdquisicion> materialHasAdquisicionCollection) {
-        this.materialHasAdquisicionCollection = materialHasAdquisicionCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -142,7 +131,7 @@ public class TipoUniMedida implements Serializable {
 
     @Override
     public String toString() {
-        return nombreTipoUniMedida + "-" + abreviatura;
+        return "co.com.devline.eo.TipoUniMedida[ idTipoUniMedida=" + idTipoUniMedida + " ]";
     }
     
 }

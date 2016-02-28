@@ -121,7 +121,7 @@ public class Ubicacion implements Serializable {
 
     @Override
     public String toString() {
-        return nombreUbicacion;
+        return "co.com.devline.eo.Ubicacion[ idUbicacion=" + idUbicacion + " ]";
     }
     
 }

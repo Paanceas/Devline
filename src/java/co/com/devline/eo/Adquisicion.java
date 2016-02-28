@@ -124,7 +124,7 @@ public class Adquisicion implements Serializable {
 
     @Override
     public String toString() {
-        return fechaAdquisicion + " " + valorTotalAdquisicion;
+        return "co.com.devline.eo.Adquisicion[ idAdquisicion=" + idAdquisicion + " ]";
     }
     
 }

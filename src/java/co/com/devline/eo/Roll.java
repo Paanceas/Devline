@@ -88,7 +88,7 @@ public class Roll implements Serializable {
 
     @Override
     public String toString() {
-        return tipoRoll;
+        return "co.com.devline.eo.Roll[ tipoRoll=" + tipoRoll + " ]";
     }
     
 }

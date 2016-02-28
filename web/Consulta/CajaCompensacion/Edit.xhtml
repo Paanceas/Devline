@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CajaDeCompensacionEditDlg" widgetVar="CajaDeCompensacionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCajaDeCompensacionTitle}">
+            <h:form id="CajaDeCompensacionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{cajaDeCompensacionController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCajaDeCompensacionLabel_nombreCajaDeCompensacion}" for="nombreCajaDeCompensacion" />
+                        <p:inputText id="nombreCajaDeCompensacion" value="#{cajaDeCompensacionController.selected.nombreCajaDeCompensacion}" title="#{bundle.EditCajaDeCompensacionTitle_nombreCajaDeCompensacion}" required="true" requiredMessage="#{bundle.EditCajaDeCompensacionRequiredMessage_nombreCajaDeCompensacion}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cajaDeCompensacionController.update}" value="#{bundle.Save}" update="display,:CajaDeCompensacionListForm:datalist,:growl" oncomplete="PF('CajaDeCompensacionEditDialog').hide();"/>
+                    <p:commandButton value="#{bundle.Cancel}" immediate="true" oncomplete="PF('CajaDeCompensacionEditDialog').hide();"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -96,7 +96,7 @@ public class ProveedorHasMaterial implements Serializable {
 
     @Override
     public String toString() {
-        return idProveedorHasMaterial + " " + idProveedor.getNombre();
+        return "co.com.devline.eo.ProveedorHasMaterial[ idProveedorHasMaterial=" + idProveedorHasMaterial + " ]";
     }
     
 }

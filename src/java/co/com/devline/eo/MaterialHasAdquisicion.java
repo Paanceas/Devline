@@ -36,9 +36,6 @@ public class MaterialHasAdquisicion implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_material_has_adquisicion")
     private Integer idMaterialHasAdquisicion;
-    @JoinColumn(name = "id_tipo_uni_medida", referencedColumnName = "id_tipo_uni_medida")
-    @ManyToOne(optional = false)
-    private TipoUniMedida idTipoUniMedida;
     @JoinColumn(name = "id_material", referencedColumnName = "id_material")
     @ManyToOne(optional = false)
     private Material idMaterial;
@@ -59,14 +56,6 @@ public class MaterialHasAdquisicion implements Serializable {
 
     public void setIdMaterialHasAdquisicion(Integer idMaterialHasAdquisicion) {
         this.idMaterialHasAdquisicion = idMaterialHasAdquisicion;
-    }
-
-    public TipoUniMedida getIdTipoUniMedida() {
-        return idTipoUniMedida;
-    }
-
-    public void setIdTipoUniMedida(TipoUniMedida idTipoUniMedida) {
-        this.idTipoUniMedida = idTipoUniMedida;
     }
 
     public Material getIdMaterial() {
@@ -107,7 +96,7 @@ public class MaterialHasAdquisicion implements Serializable {
 
     @Override
     public String toString() {
-        return idMaterialHasAdquisicion + " " + idMaterial.getNombreMaterial();
+        return "co.com.devline.eo.MaterialHasAdquisicion[ idMaterialHasAdquisicion=" + idMaterialHasAdquisicion + " ]";
     }
     
 }

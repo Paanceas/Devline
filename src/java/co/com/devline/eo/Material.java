@@ -209,7 +209,7 @@ public class Material implements Serializable {
 
     @Override
     public String toString() {
-        return nombreMaterial + " " + codigoMaterial;
+        return "co.com.devline.eo.Material[ idMaterial=" + idMaterial + " ]";
     }
     
 }

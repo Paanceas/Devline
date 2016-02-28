@@ -19,11 +19,17 @@
     box-sizing: border-box;
 }
 body{
-    font-size: 16px;
+    font-size: 13px;
+}
+tbody{
+    font-size: 12.5px;
 }
 a{
     text-decoration: none;
     color: #000;
+}
+input:focus, select:focus, textArea:focus{
+    border: 2px solid rgb(255, 144, 26) !important;
 }
 .body_dev{
     display: flex;
@@ -125,9 +131,40 @@ a{
   margin-top: 14.5px;
   text-align: center;
 }
+.orange{
+    background-color: #FF901A;
+    color: white;
+}
 .orange:hover{
     background-color: #FF901A !important;
     color: #fff !important;
+}
+.silver{
+    color: #424242;
+    background-color: #ccc; 
+}
+.migas .breadcrumb ul li a{
+    width: 60%;
+    margin-left: 20%;
+    font-size: 5px important;
+}
+.ui-outputlabel-rfi{
+    color: #FF901A;
+}
+.acomodarTablas{
+    width: 50px;
+}
+.ajustar-form{
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.ajustar-form .form-group{
+    width: 24%;
+}
+.selects .form-group{
+    width: 49%;
 }
 /*Menu en acordion*/
 .contenedor-menu{

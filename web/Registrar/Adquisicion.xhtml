@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../Plantilla/DevPlantilla.xhtml">
+
+            <ui:define name="title">
+                Adquisición
+            </ui:define>
+
+            <ui:define name="content">
+                <ul class="breadcrumb">
+                    <li><h:form><h:commandLink value="Inicio" action="/faces/Panel.xhtml?faces-redirect=true"/></h:form></li>
+                    <li><a >Registrar</a></li>
+                    <li class="active">Adquisición</li>
+                </ul>
+                <h1><span>Registro</span><span style="color: #FF901A;"> Adquisición</span></h1>
+                <hr/>
+                <h:form>
+                    <div class="form-group">
+                        <p:outputLabel value="#{bundle.CreateProveedorHasMaterialLabel_idProveedor}" for="idProveedor" />
+                        <h:selectOneMenu class="form-control" id="idProveedor" value="#{adquisicionController.proveedor}" required="true" requiredMessage="#{bundle.EditProveedorHasMaterialRequiredMessage_idProveedor}" converter="omnifaces.SelectItemsConverter">
+                            <f:selectItem noSelectionOption="true" itemLabel="Seleccione una Proveedor" itemValue="#{null}"/>
+                            <f:selectItems value="#{proveedorController.items}"
+                                           itemLabel="#{pro.nombre}"
+                                           var="pro"
+                                           itemValue="#{pro}"/>
+                        </h:selectOneMenu>
+                    </div>
+                    <div class="ajustar-form al">
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateMaterialLabel_codigoMaterial}" for="codigoMaterial" />
+                            <p:inputText id="codigoMaterial" pt:placeholder="CodigoMaterial" value="#{adquisicionController.material.codigoMaterial}" title="#{bundle.CreateMaterialTitle_codigoMaterial}" required="true" requiredMessage="#{bundle.CreateMaterialRequiredMessage_codigoMaterial}"/>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateMaterialLabel_nombreMaterial}" for="nombreMaterial" />
+                            <p:inputText id="nombreMaterial" pt:placeholder="NombreMaterial" value="#{adquisicionController.material.nombreMaterial}" title="#{bundle.CreateMaterialTitle_nombreMaterial}" required="true" requiredMessage="#{bundle.CreateMaterialRequiredMessage_nombreMaterial}"/>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateMaterialLabel_precioUnitario}" for="precioUnitario" />
+                            <p:inputText id="precioUnitario" class="value" pt:type="number" pt:placeholder="PrecioUnitario" value="#{adquisicionController.material.precioUnitario}" title="#{bundle.CreateMaterialTitle_precioUnitario}" required="true" requiredMessage="#{bundle.CreateMaterialRequiredMessage_precioUnitario}"/>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateMaterialLabel_cantidadTotal}" for="cantidadTotal" />
+                            <p:inputText id="cantidadTotal" class="value" pt:type="number" pt:placeholder="CantidadTotal" value="#{adquisicionController.material.cantidadTotal}" title="#{bundle.CreateMaterialTitle_cantidadTotal}" required="true" requiredMessage="#{bundle.CreateMaterialRequiredMessage_cantidadTotal}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <p:outputLabel value="#{bundle.CreateMaterialLabel_descripcionMaterial}" for="descripcionMaterial" />
+                        <h:inputTextarea class="form-control" id="descripcionMaterial" pt:placeholder="DescripciónMaterial" value="#{adquisicionController.material.descripcionMaterial}" title="#{bundle.CreateMaterialTitle_descripcionMaterial}" />
+                    </div>
+                    <div class="ajustar-form selects al2">
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateMaterialLabel_idTipoUniMedida}" for="idTipoUniMedida" />
+                            <h:selectOneMenu class="form-control" id="idTipoUniMedida" value="#{adquisicionController.material.idTipoUniMedida}" required="true" requiredMessage="#{bundle.EditMaterialRequiredMessage_idTipoUniMedida}">
+                                <f:selectItem noSelectionOption="true" itemLabel="Seleccione Una Opción" itemValue="#{null}"/>
+                                <f:selectItems value="#{tipoUniMedidaController.itemsAvailableSelectOne}"
+                                               var="idTipoUniMedidaItem"
+                                               itemLabel="#{idTipoUniMedidaItem.nombreTipoUniMedida}"
+                                               itemValue="#{idTipoUniMedidaItem}"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateMaterialLabel_idCategoria}" for="idCategoria" />
+
+                            <h:selectOneMenu class="form-control" id="idCategoria" value="#{adquisicionController.material.idCategoria}" required="true" requiredMessage="#{bundle.EditMaterialRequiredMessage_idCategoria}">
+                                <f:selectItem noSelectionOption="true" itemLabel="Seleccione una Categoria" itemValue="#{null}"/>
+                                <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"
+                                               var="idCategoriaItem"
+                                               itemLabel="#{idCategoriaItem.nombreCategoria}"
+                                               itemValue="#{idCategoriaItem}"/>
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                    <p:commandButton actionListener="#{adquisicionController.agregar()}" class="orange" value="Ingresar Material" update="materiales" action="#{adquisicionController.prepararMaterial()}" />
+                    <br/><br/>
+                    <p:dataTable var="material" id="materiales"
+                                 value="#{adquisicionController.listaMateriales}">
+                        <p:column headerText="CodigoMaterial">
+                            #{material.codigoMaterial}
+                        </p:column>
+                        <p:column headerText="NombreMaterial">
+                            #{material.nombreMaterial}
+                        </p:column>
+                        <p:column headerText="PrecioUnitario">
+                            #{material.precioUnitario}
+                        </p:column>
+                        <p:column headerText="CantidadTotal">
+                            #{material.cantidadTotal}
+                        </p:column>
+
+                    </p:dataTable>
+                    <p:commandButton class="orange" value="Registrar Adquisición"/>
+                </h:form>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        boton();
+                        formCont();
+                        $(".value").val(" ");
+                        $("label").addClass("sr-only");
+                        if (screen.width >= 900) {
+                            $(".al").addClass("ajustar-form");
+                            $(".al2").addClass("ajustar-form selects");
+                        } else {
+                            $(".al").removeClass("ajustar-form");
+                            $(".al2").removeClass("ajustar-form selects");
+                        }
+                    })
+                </script>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

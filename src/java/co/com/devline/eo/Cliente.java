@@ -209,7 +209,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return nombre + " - " + identificacion;
+        return "co.com.devline.eo.Cliente[ idCliente=" + idCliente + " ]";
     }
     
 }

@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../Plantilla/DevPlantilla.xhtml">
+
+            <ui:define name="title">
+                Proyecto
+            </ui:define>
+
+            <ui:define name="content">
+                <ul class="breadcrumb">
+                    <li><a href="../Panel.xhtml">Home</a></li>
+                    <li><a href="">Registro</a></li>
+                    <li class="active">Proyecto</li>
+                </ul>
+                <h1><span>Registro</span><span style="color: #FF901A;"> Proyecto</span></h1>
+                <hr/>
+                <div class="center_dev">
+                    <h:form id="ProyectoCreateForm">
+                        <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Campos Obligatorios</strong></div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateProyectoLabel_nombreProyecto}" for="nombreProyecto" />
+                            <div class="input-group">
+                                <p:inputText id="nombreProyecto" class="form-control" value="#{proyectoController.selected.nombreProyecto}" title="#{bundle.CreateProyectoTitle_nombreProyecto}" required="true" requiredMessage="#{bundle.CreateProyectoRequiredMessage_nombreProyecto}"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateProyectoLabel_codigoProyecto}" for="codigoProyecto" />
+                            <div class="input-group">
+                                <p:inputText id="codigoProyecto" class="form-control" value="#{proyectoController.selected.codigoProyecto}" title="#{bundle.CreateProyectoTitle_codigoProyecto}" required="true" requiredMessage="#{bundle.CreateProyectoRequiredMessage_codigoProyecto}"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateProyectoLabel_descripcionProyecto}" for="descripcionProyecto" />
+                            <div class="input-group">
+                                <h:inputTextarea  id="descripcionProyecto" class="form-control" value="#{proyectoController.selected.descripcionProyecto}" title="#{bundle.CreateProyectoTitle_descripcionProyecto}" />
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateProyectoLabel_fechaInicioProyecto}" for="fechaInicioProyecto" />
+                            <div class="input-group">
+                                <p:calendar id="fechaInicioProyecto" pattern="MM/dd/yyyy" value="#{proyectoController.selected.fechaInicioProyecto}" title="#{bundle.EditProyectoTitle_fechaInicioProyecto}"  navigator="true" locale="es"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateProyectoLabel_fechaFinalProyecto}" for="fechaFinalProyecto" />
+                            <div class="input-group">
+                                <p:calendar id="fechaFinalProyecto" pattern="MM/dd/yyyy" value="#{proyectoController.selected.fechaFinalProyecto}" title="#{bundle.EditProyectoTitle_fechaFinalProyecto}" navigator="true" locale="es"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateProyectoLabel_valorAnticipado}" for="valorAnticipado" />
+                            <div class="input-group">
+                                <p:inputText id="valorAnticipado" class="form-control value" value="#{proyectoController.selected.valorAnticipado}" title="#{bundle.CreateProyectoTitle_valorAnticipado}" required="true" requiredMessage="#{bundle.CreateProyectoRequiredMessage_valorAnticipado}"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateProyectoLabel_valorTotalProyecto}" for="valorTotalProyecto" />
+                            <div class="input-group">
+                                <p:inputText id="valorTotalProyecto" class="form-control value" value="#{proyectoController.selected.valorTotalProyecto}" title="#{bundle.CreateProyectoTitle_valorTotalProyecto}" required="true" requiredMessage="#{bundle.CreateProyectoRequiredMessage_valorTotalProyecto}"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateProyectoLabel_idCotizacion}" for="idCotizacion" />
+                            <div class="input-group">
+                                <h:selectOneMenu id="idCotizacion" class="form-control" value="#{proyectoController.selected.idCotizacion}" required="true" requiredMessage="#{bundle.EditProyectoRequiredMessage_idCotizacion}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione Una Opción" itemValue="#{null}"/>
+                                    <f:selectItems value="#{cotizacionController.itemsAvailableSelectOne}"
+                                                   var="idCotizacionItem"
+                                                   itemLabel="#{idCotizacionItem.idCotizacion} #{idCotizacionItem.idCliente.nombre} - #{idCotizacionItem.idCliente.identificacion}"
+                                                   itemValue="#{idCotizacionItem}"/>
+                                </h:selectOneMenu>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateProyectoLabel_idEstado}" for="idEstado" />
+                            <div class="input-group">
+                                <h:selectOneMenu id="idEstado" class="form-control" value="#{proyectoController.selected.idEstado}" required="true" requiredMessage="#{bundle.EditProyectoRequiredMessage_idEstado}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione Una Opción" itemValue="#{null}"/>
+                                    <f:selectItems value="#{estadoController.itemsAvailableSelectOne}"
+                                                   var="idEstadoItem"
+                                                   itemLabel="#{idEstadoItem.tipoEstado}"
+                                                   itemValue="#{idEstadoItem}"/>
+                                </h:selectOneMenu>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <p:commandButton class="orange" actionListener="#{proyectoController.create}" action="/faces/Registrar/Cliente.xhtml?faces-redirect=true" value="Registrar Cliente" update=":growl"/>
+                        <button type="reset" class="silver">Restaurar</button>
+                    </h:form>
+                </div>
+                <h:outputScript library="js" name="spanishLocale.js"/>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        boton();
+                        $(".value").val(" ");
+                        $("input").addClass("form-control");
+                        $(".remover_dev").removeClass("form-control");
+                    })
+                </script>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../Plantilla/DevPlantilla.xhtml">
+
+            <ui:define name="title">
+                Empleado
+            </ui:define>
+
+            <ui:define name="content">
+                <ul class="breadcrumb">
+                    <li><a href="../../Panel.xhtml">Home</a></li>
+                    <li><a >Consulta</a></li>
+                    <li class="active">Empleado</li>
+                </ul>
+                 <h:form id="EmpleadoListForm">
+                     <p:dataTable id="datalist" value="#{empleadoController.listar()}" var="item"
+                                 selectionMode="single" selection="#{empleadoController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idEmpleado}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column class="id">
+                            <f:facet name="header">
+                                <h:outputText value="#"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idEmpleado}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEmpleadoTitle_nombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        <p:column class="ti">
+                            <f:facet name="header">
+                                <h:outputText value="TI"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idTipoIdentificacion.tipoIdentificacion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEmpleadoTitle_documento}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.documento}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEmpleadoTitle_telefono}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.telefono}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEmpleadoTitle_celular}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.celular}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEmpleadoTitle_direccion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.direccion}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEmpleadoTitle_idCiudad}"/>
+                            </f:facet>
+                            <h:outputText value="( #{item.idCiudad.idUbicacion.idPais.abreviatura} ) #{item.idCiudad.idUbicacion.nombreUbicacion} - #{item.idCiudad.nombreCiudad}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEmpleadoTitle_correo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.correo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEmpleadoTitle_arl}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.arl}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEmpleadoTitle_fechaIngreso}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaIngreso}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEmpleadoTitle_fechaRetiro}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaRetiro}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{empleadoController.prepareCreate()}" action="/faces/Registrar/Empleado.xhtml?faces-redirect=true"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EmpleadoViewForm" oncomplete="PF('EmpleadoViewDialog').show()" disabled="#{empty empleadoController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EmpleadoEditForm" oncomplete="PF('EmpleadoEditDialog').show()" disabled="#{empty empleadoController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{empleadoController.borradoLogico()}" update=":growl,datalist" disabled="#{empty empleadoController.selected}">
+                                <p:confirm message="¿Seguro de Eliminar este Cliente?" header="Aviso" icon="ui-icon-alert"/>
+                            </p:commandButton>
+                            <p:confirmDialog global="true">
+                                <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
+                                <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+                            </p:confirmDialog>
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
+
+                <ui:include src="Edit.xhtml"/>
+                <ui:include src="View.xhtml"/>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        hover();
+                    });
+                </script>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

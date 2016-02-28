@@ -27,11 +27,30 @@ public class ClienteController implements Serializable {
     @EJB
     private co.com.devline.sb.ClienteFacade ejbFacade;
     private List<Cliente> items = null;
-    private List<Cliente> listaCliente = null;
+      private List<Cliente> listaCliente = null;
     private Cliente selected;
+    
+    //ajax count cliente
+    private Long cantCliente;
+     public void clientesTotal(){
+        cantCliente = ejbFacade.cantClientes();
+    }
 
     public ClienteController() {
     }
+    
+    public List<Cliente> listar() {
+        listaCliente = ejbFacade.listarClientes();
+        return listaCliente;
+    }
+
+    public void borradoLogico() {
+        ejbFacade.borrar(selected);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Cliente Eliminado"));
+
+    }
+    
 
     public Cliente getSelected() {
         return selected;
@@ -57,8 +76,7 @@ public class ClienteController implements Serializable {
         return selected;
     }
 
-    public void create() {
-        System.out.println(selected.getIdCliente() + selected.getNombre()+ selected.getIdentificacion());
+     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ClienteCreated"));
         if (!JsfUtil.isValidationFailed()) {
             listaCliente = null;    // Invalidate list of items to trigger re-query.
@@ -85,18 +103,6 @@ public class ClienteController implements Serializable {
         return items;
     }
 
-    public List<Cliente> listar() {
-        listaCliente = ejbFacade.listarClientes();
-        return listaCliente;
-    }
-
-    public void borradoLogico() {
-        ejbFacade.borrar(selected);
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Cliente Eliminado"));
-
-    }
-
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
@@ -108,7 +114,7 @@ public class ClienteController implements Serializable {
                 }
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {
-                String msg = "error en el persisten";
+                String msg = "";
                 Throwable cause = ex.getCause();
                 if (cause != null) {
                     msg = cause.getLocalizedMessage();
@@ -139,6 +145,14 @@ public class ClienteController implements Serializable {
 
     public void setListaCliente(List<Cliente> listaCliente) {
         this.listaCliente = listaCliente;
+    }
+
+    public Long getCantCliente() {
+        return cantCliente;
+    }
+
+    public void setCantCliente(Long cantCliente) {
+        this.cantCliente = cantCliente;
     }
 
     @FacesConverter(forClass = Cliente.class)

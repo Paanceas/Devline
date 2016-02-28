@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProyectoViewDlg" widgetVar="ProyectoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProyectoTitle}">
+            <h:form id="ProyectoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{proyectoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewProyectoLabel_idProyecto}"/>
+                        <h:outputText value="#{proyectoController.selected.idProyecto}" title="#{bundle.ViewProyectoTitle_idProyecto}"/>
+                        <h:outputText value="#{bundle.ViewProyectoLabel_nombreProyecto}"/>
+                        <h:outputText value="#{proyectoController.selected.nombreProyecto}" title="#{bundle.ViewProyectoTitle_nombreProyecto}"/>
+                        <h:outputText value="#{bundle.ViewProyectoLabel_codigoProyecto}"/>
+                        <h:outputText value="#{proyectoController.selected.codigoProyecto}" title="#{bundle.ViewProyectoTitle_codigoProyecto}"/>
+                        <h:outputText value="#{bundle.ViewProyectoLabel_descripcionProyecto}"/>
+                        <h:outputText value="#{proyectoController.selected.descripcionProyecto}" title="#{bundle.ViewProyectoTitle_descripcionProyecto}"/>
+                        <h:outputText value="#{bundle.ViewProyectoLabel_fechaInicioProyecto}"/>
+                        <h:outputText value="#{proyectoController.selected.fechaInicioProyecto}" title="#{bundle.ViewProyectoTitle_fechaInicioProyecto}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewProyectoLabel_fechaFinalProyecto}"/>
+                        <h:outputText value="#{proyectoController.selected.fechaFinalProyecto}" title="#{bundle.ViewProyectoTitle_fechaFinalProyecto}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewProyectoLabel_valorAnticipado}"/>
+                        <h:outputText value="#{proyectoController.selected.valorAnticipado}" title="#{bundle.ViewProyectoTitle_valorAnticipado}"/>
+                        <h:outputText value="#{bundle.ViewProyectoLabel_valorTotalProyecto}"/>
+                        <h:outputText value="#{proyectoController.selected.valorTotalProyecto}" title="#{bundle.ViewProyectoTitle_valorTotalProyecto}"/>
+                        <h:outputText value="#{bundle.ViewProyectoLabel_idCotizacion}"/>
+                        <h:outputText value="#{proyectoController.selected.idCotizacion}" title="#{bundle.ViewProyectoTitle_idCotizacion}"/>
+                        <h:outputText value="#{bundle.ViewProyectoLabel_idEstado}"/>
+                        <h:outputText value="#{proyectoController.selected.idEstado}" title="#{bundle.ViewProyectoTitle_idEstado}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ProyectoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

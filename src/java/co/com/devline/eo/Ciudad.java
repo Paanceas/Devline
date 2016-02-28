@@ -143,7 +143,7 @@ public class Ciudad implements Serializable {
 
     @Override
     public String toString() {
-        return idUbicacion.getIdPais().getAbreviatura() + "-" + idUbicacion.getNombreUbicacion() + ", " + nombreCiudad;
+        return "co.com.devline.eo.Ciudad[ idCiudad=" + idCiudad + " ]";
     }
     
 }

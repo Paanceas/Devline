@@ -14,12 +14,6 @@
                     <p:panelGrid columns="2" rendered="#{materialHasAdquisicionController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateMaterialHasAdquisicionLabel_idMaterialHasAdquisicion}" for="idMaterialHasAdquisicion" />
                         <p:inputText id="idMaterialHasAdquisicion" value="#{materialHasAdquisicionController.selected.idMaterialHasAdquisicion}" title="#{bundle.CreateMaterialHasAdquisicionTitle_idMaterialHasAdquisicion}" required="true" requiredMessage="#{bundle.CreateMaterialHasAdquisicionRequiredMessage_idMaterialHasAdquisicion}"/>
-                        <p:outputLabel value="#{bundle.CreateMaterialHasAdquisicionLabel_idTipoUniMedida}" for="idTipoUniMedida" />
-                        <p:selectOneMenu id="idTipoUniMedida" value="#{materialHasAdquisicionController.selected.idTipoUniMedida}" required="true" requiredMessage="#{bundle.EditMaterialHasAdquisicionRequiredMessage_idTipoUniMedida}">
-                            <f:selectItems value="#{tipoUniMedidaController.itemsAvailableSelectOne}"
-                                           var="idTipoUniMedidaItem"
-                                           itemValue="#{idTipoUniMedidaItem}"/>
-                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateMaterialHasAdquisicionLabel_idMaterial}" for="idMaterial" />
                         <p:selectOneMenu id="idMaterial" value="#{materialHasAdquisicionController.selected.idMaterial}" required="true" requiredMessage="#{bundle.EditMaterialHasAdquisicionRequiredMessage_idMaterial}">
                             <f:selectItems value="#{materialController.itemsAvailableSelectOne}"

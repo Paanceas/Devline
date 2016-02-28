@@ -6,6 +6,9 @@
 package co.com.devline.sb;
 
 import co.com.devline.eo.Adquisicion;
+import co.com.devline.eo.Material;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,7 +21,8 @@ import javax.persistence.PersistenceContext;
 public class AdquisicionFacade extends AbstractFacade<Adquisicion> {
     @PersistenceContext(unitName = "DevlinePU")
     private EntityManager em;
-
+    @EJB
+    private MaterialFacade materialFacade;
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -27,5 +31,8 @@ public class AdquisicionFacade extends AbstractFacade<Adquisicion> {
     public AdquisicionFacade() {
         super(Adquisicion.class);
     }
-    
+    //maestro detallle
+    public List<Material> obtenerMaterialesXIdAdquisicion(Adquisicion adquisicion) {
+        return materialFacade.getListaMaterialesXIdAdquisicion(adquisicion.getIdAdquisicion());
+    }
 }

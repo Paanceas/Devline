@@ -108,7 +108,7 @@ public class Salud implements Serializable {
 
     @Override
     public String toString() {
-        return tipoSalud;
+        return "co.com.devline.eo.Salud[ idSalud=" + idSalud + " ]";
     }
     
 }

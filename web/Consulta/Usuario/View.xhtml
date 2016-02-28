@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioViewDlg" widgetVar="UsuarioViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUsuarioTitle}">
+            <h:form id="UsuarioViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_idUsuario}"/>
+                        <h:outputText value="#{usuarioController.selected.idUsuario}" title="#{bundle.ViewUsuarioTitle_idUsuario}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_nombreUsuario}"/>
+                        <h:outputText value="#{usuarioController.selected.nombreUsuario}" title="#{bundle.ViewUsuarioTitle_nombreUsuario}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_clave}"/>
+                        <h:outputText value="#{usuarioController.selected.clave}" title="#{bundle.ViewUsuarioTitle_clave}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_tipoRoll}"/>
+                        <h:outputText value="#{usuarioController.selected.tipoRoll}" title="#{bundle.ViewUsuarioTitle_tipoRoll}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="UsuarioViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

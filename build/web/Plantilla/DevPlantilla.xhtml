@@ -16,7 +16,7 @@
     </h:head>
 
     <h:body>
-        <p:growl id="growl" autoUpdate="true" sticky="true"/>
+        <p:growl id="growl" autoUpdate="true" life="3000"/>
         <div id="top">
             <ui:insert name="top">
                 <nav class="navbar navbar-default" role="navigation">
@@ -30,17 +30,14 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="Panel.xhtml"><h:graphicImage value="/resources/img/devline.png" class="img"/></a>
+                        <a class="navbar-brand"><h:graphicImage value="/resources/img/devline.png" class="img"/></a>
                     </div>
 
                     <!-- Agrupar los enlaces de navegación, los formularios y cualquier
                          otro elemento que se pueda ocultar al minimizar la barra -->
                     <div class="collapse navbar-collapse navbar-ex1-collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><div class="hover"><a><h:form><p:commandButton actionListener="#{usuarioController.logout()}" action="/faces/login.xhtml?faces-redirect=true" value="Salir" class="btn btn-link"><i class="fa fa-sign-out"/></p:commandButton></h:form></a></div></li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a><i title="Online" class="fa fa-circle verde"></i> <h:outputText value=" #{usuarioController.usuarioLogueado.nombreUsuario}"/><small><cite title="Source Title"><h:outputLabel value="#{usuarioController.usuarioLogueado.tipoRoll.tipoRoll}"/></cite></small></a></li>
+                            <li><div class="hover"><h:form><p:commandLink actionListener="#{usuarioController.logout()}" action="/faces/login.xhtml?faces-redirect=true" value="Salir" class="btn btn-link"><i class="fa fa-sign-out"/></p:commandLink></h:form></div></li>
                         </ul>
                     </div>
                 </nav>
@@ -51,25 +48,66 @@
                 <ui:insert name="left">
                     <h:form>
                         <div class="contenedor-menu">
-                            <ul class="menu">
-                                <li><a href="#">Modulo Adquisición <i class="icono derecha fa fa-chevron-down"/></a>
+                            <ul class="menu" style="background-color: #f8f8f8">
+                                <li>
+                                    <h:graphicImage value="/resources/img/user.png" class="user_icon"/>
+                                    <h4 style="width: 100%;" class="text-center">
+                                        <h:outputText value="#{usuarioController.usuarioLogueado.nombreUsuario}"/><i title="Online" class="fa fa-circle verde"></i>
+                                        <br/>
+                                        <small><h:outputText style="color: #FF901A " value="#{usuarioController.usuarioLogueado.tipoRoll.tipoRoll}"/></small>
+                                    </h4>
+                                </li>
+                                <li><a href="#">Módulo Adquisición <i class="icono derecha fa fa-chevron-down"/></a>
                                     <ul>
-                                        <li><a href="#">Registrar <i class="icono izquierda fa fa-plus"></i></a></li>
-                                        <li><a href="#">Consultar <i class="icono izquierda fa fa-search"></i></a></li>
+                                        <li><h:commandLink rendered="#{usuarioController.usuarioLogueado!=null and usuarioController.usuarioLogueado.tipoRoll.tipoRoll eq 'Administrador'}" actionListener="#{adquisicionController.prepareCreate()}" action="/faces/Registrar/Adquisicion.xhtml?faces-redirect=true" value=" Registrar" ><i class="icono izquierda fa fa-plus"></i></h:commandLink></li>
+                                        <li><h:commandLink action="/faces/Consulta/Adquisicion/Adquisicion.xhtml?faces-redirect=true" value=" Consultar"><i class="icono izquierda fa fa-search"></i></h:commandLink></li>
                                     </ul>
                                 </li>
-                                <li><a href="#">Modulo Cliente <i class="icono derecha fa fa-chevron-down"/></a>
+                                <li><a href="#">Módulo Cliente <i class="icono derecha fa fa-chevron-down"/></a>
                                     <ul>
-                                        <li><h:commandLink rendered="#{usuarioController.usuarioLogueado!=null and usuarioController.usuarioLogueado.tipoRoll.tipoRoll eq 'Administrador'}" actionListener="#{clienteController.prepareCreate()}" action="/faces/Registrar/Cliente.xhtml?faces-redirect=true" value=" Registrar" ><i class="icono izquierda fa fa-plus"></i></h:commandLink></li>
+                                        <li><h:commandLink actionListener="#{clienteController.prepareCreate()}" action="/faces/Registrar/Cliente.xhtml?faces-redirect=true" value=" Registrar" ><i class="icono izquierda fa fa-plus"></i></h:commandLink></li>
                                         <li><h:commandLink action="/faces/Consulta/Cliente/Cliente.xhtml?faces-redirect=true" value=" Consultar"><i class="icono izquierda fa fa-search"></i></h:commandLink></li>
                                     </ul>
                                 </li>
-                                <li><a href="#">Modulo Empleado <i class="icono derecha fa fa-chevron-down"/></a>
+                                <li><a href="#">Módulo Empleado <i class="icono derecha fa fa-chevron-down"/></a>
                                     <ul>
-                                        <li><a href="#">Registrar <i class="icono izquierda fa fa-plus"></i></a></li>
-                                        <li><a href="#">Consultar <i class="icono izquierda fa fa-search"></i></a></li>
+                                        <li><h:commandLink actionListener="#{empleadoController.prepareCreate()}" action="/faces/Registrar/Empleado.xhtml?faces-redirect=true" value=" Registrar" ><i class="icono izquierda fa fa-plus"></i></h:commandLink></li>
+                                        <li><h:commandLink action="/faces/Consulta/Empleado/Empleado.xhtml?faces-redirect=true" value=" Consultar"><i class="icono izquierda fa fa-search"></i></h:commandLink></li>
                                     </ul>
                                 </li>
+                                <li><a href="#">Módulo Proveedor <i class="icono derecha fa fa-chevron-down"/></a>
+                                    <ul>
+                                        <li><h:commandLink  actionListener="#{proveedorController.prepareCreate()}" action="/faces/Registrar/Proveedor.xhtml?faces-redirect=true" value=" Registrar" ><i class="icono izquierda fa fa-plus"></i></h:commandLink></li>
+                                        <li><h:commandLink action="/faces/Consulta/Proveedor/Proveedor.xhtml?faces-redirect=true" value=" Consultar"><i class="icono izquierda fa fa-search"></i></h:commandLink></li>
+                                        <li><h:commandLink action="/faces/Consulta/Proveedor/ProveedorHasMaterial.xhtml?faces-redirect=true" value=" Materiales Por Proveedor"><i class="icono izquierda fa fa-search"></i></h:commandLink></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Módulo Usuario<i class="icono derecha fa fa-chevron-down"/></a>
+                                    <ul>
+                                        <li><h:commandLink rendered="#{usuarioController.usuarioLogueado!=null and usuarioController.usuarioLogueado.tipoRoll.tipoRoll eq 'Administrador'}" actionListener="#{usuarioController.prepareCreate()}" action="/faces/Registrar/Usuario.xhtml?faces-redirect=true" value=" Registrar" ><i class="icono izquierda fa fa-plus"></i></h:commandLink></li>
+                                        <li><h:commandLink action="/faces/Consulta/Usuario/Usuario.xhtml?faces-redirect=true" value=" Consultar"><i class="icono izquierda fa fa-search"></i></h:commandLink></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Módulo Cotización<i class="icono derecha fa fa-chevron-down"/></a>
+                                    <ul>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Módulo Proyecto<i class="icono derecha fa fa-chevron-down"/></a>
+                                    <ul>
+                                        <li><h:commandLink rendered="#{usuarioController.usuarioLogueado!=null and usuarioController.usuarioLogueado.tipoRoll.tipoRoll eq 'Administrador'}" actionListener="#{proyectoController.prepareCreate()}" action="/faces/Registrar/Proyecto.xhtml?faces-redirect=true" value=" Registrar" ><i class="icono izquierda fa fa-plus"></i></h:commandLink></li>
+                                        <li><h:commandLink rendered="#{usuarioController.usuarioLogueado!=null and usuarioController.usuarioLogueado.tipoRoll.tipoRoll eq 'Administrador'}" actionListener="#{empleadoHasProyectoController.prepareCreate()}" action="/faces/Registrar/EmpleadosProyecto.xhtml?faces-redirect=true" value=" Registrar Empleados" ><i class="icono izquierda fa fa-plus"></i></h:commandLink></li>
+                                        <li><h:commandLink action="/faces/Consulta/Proyecto/Proyecto.xhtml?faces-redirect=true" value=" Consultar"><i class="icono izquierda fa fa-search"></i></h:commandLink></li>
+                                        <li><h:commandLink action="/faces/Consulta/Proyecto/ProyectoEmpleados.xhtml?faces-redirect=true" value=" Empleados por Proyecto"><i class="icono izquierda fa fa-search"></i></h:commandLink></li>
+                                    </ul>
+                                </li>
+                                <li><h:commandLink action="/faces/Consulta/categoria/Categoria.xhtml?faces-redirect=true" value="Categoria"></h:commandLink></li>
+                                <li><h:commandLink action="/faces/Consulta/pension/Pension.xhtml?faces-redirect=true" value="Pensión"></h:commandLink></li>
+                                <li><h:commandLink action="/faces/Consulta/salud/Salud.xhtml?faces-redirect=true" value="Salud"></h:commandLink></li>
+                                <li><h:commandLink action="/faces/Consulta/CajaCompensacion/CajaCompensacion.xhtml?faces-redirect=true" value="Caja de Compensacion"></h:commandLink></li>
+                                <li><h:commandLink action="/faces/Consulta/Cargo/Cargo.xhtml?faces-redirect=true" value="Cargo"></h:commandLink></li>
+                                <li><h:commandLink action="/faces/Consulta/Ubicacion/Ubicacion.xhtml?faces-redirect=true" value="Ubicación"></h:commandLink></li>
+                                <li><h:commandLink action="/faces/Consulta/TUM/TUM.xhtml?faces-redirect=true" value="Tipo Unidad de Medida"></h:commandLink></li>
+
                             </ul>
                         </div>
                     </h:form>
@@ -83,7 +121,7 @@
         </div>
         <footer id="footer">
             <div class="container">
-                <p class="text-muted"><ui:insert name="bottom">Copyright <i class="fa fa-copyright"/> Todos los Derechos Reservados</ui:insert></p>
+                <p class="text-muted"><ui:insert name="bottom">Copyright <i class="fa fa-copyright"/> 2016 Todos los Derechos Reservados</ui:insert></p>
             </div>
         </footer>
         <h:outputScript library="js" name="bootstrap.min.js" />

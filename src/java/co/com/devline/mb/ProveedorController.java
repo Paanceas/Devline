@@ -1,5 +1,6 @@
 package co.com.devline.mb;
 
+import co.com.devline.eo.Material;
 import co.com.devline.eo.Proveedor;
 import co.com.devline.mb.util.JsfUtil;
 import co.com.devline.mb.util.JsfUtil.PersistAction;
@@ -12,12 +13,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ValueChangeEvent;
 
 @ManagedBean(name = "proveedorController")
 @SessionScoped
@@ -27,9 +30,47 @@ public class ProveedorController implements Serializable {
     private co.com.devline.sb.ProveedorFacade ejbFacade;
     private List<Proveedor> items = null;
     private Proveedor selected;
+    private List<Proveedor> listaEmpleados = null;
 
+    //ajax count proveedor
+    private Long cantProveedor;
+
+    //maestro detalle
+    private Proveedor proveedorSeleccionado;
+    private List<Material> listaMateriales;
+
+    public Proveedor getProveedorSeleccionado() {
+        return proveedorSeleccionado;
+    }
+
+    public void setProveedorSeleccionado(Proveedor proveedorSeleccionado) {
+        this.proveedorSeleccionado = proveedorSeleccionado;
+    }
+
+    public List<Material> getListaMateriales() {
+        return listaMateriales;
+    }
+
+    public void setListaMateriales(List<Material> listaMateriales) {
+        this.listaMateriales = listaMateriales;
+    }
+
+    //ajax count proveedor
+    public void proveedorTotal() {
+        cantProveedor = ejbFacade.cantProveedores();
+    }
 
     public ProveedorController() {
+    }
+
+    public List<Proveedor> listar() {
+        listaEmpleados = ejbFacade.listarEmpleados();
+        return listaEmpleados;
+    }
+
+    public void borradoLogico() {
+        ejbFacade.borrar(selected);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Proveedor Eliminado"));
     }
 
     public Proveedor getSelected() {
@@ -61,6 +102,7 @@ public class ProveedorController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
     }
 
     public void update() {
@@ -118,6 +160,21 @@ public class ProveedorController implements Serializable {
         return getFacade().findAll();
     }
 
+    public List<Proveedor> getListaEmpleados() {
+        return listaEmpleados;
+    }
+
+    public void setListaEmpleados(List<Proveedor> listaEmpleados) {
+        this.listaEmpleados = listaEmpleados;
+    }
+
+    public Long getCantProveedor() {
+        return cantProveedor;
+    }
+
+    public void setCantProveedor(Long cantProveedor) {
+        this.cantProveedor = cantProveedor;
+    }
 
     @FacesConverter(forClass = Proveedor.class)
     public static class ProveedorControllerConverter implements Converter {
@@ -159,4 +216,8 @@ public class ProveedorController implements Serializable {
         }
     }
 
+    public void cargarMateriales(ValueChangeEvent value) {
+        proveedorSeleccionado = (Proveedor) value.getNewValue();
+        listaMateriales = ejbFacade.obtenerMaterialesXProveedor(proveedorSeleccionado);
+    }
 }

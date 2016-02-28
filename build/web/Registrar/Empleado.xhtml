@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"        
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../Plantilla/DevPlantilla.xhtml">
+
+            <ui:define name="title">
+                Empleado
+            </ui:define>
+
+            <ui:define name="content">
+                <ul class="breadcrumb">
+                    <li><a href="../Panel.xhtml">Home</a></li>
+                    <li><a href="">Registro</a></li>
+                    <li class="active">Empleado</li>
+                </ul>
+                <h1><span>Registro</span><span style="color: #FF901A;">Empleado</span></h1>
+                <hr/>
+                <div class="center_dev">
+                    <h:form id="EmpleadoCreateForm">
+                        <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Campos Obligatorios</strong></div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_nombre}" for="nombre" />
+                            <div class="input-group">
+                                <p:inputText id="nombre" class="form-control" value="#{empleadoController.selected.nombre}" title="#{bundle.CreateEmpleadoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateEmpleadoRequiredMessage_nombre}"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_idTipoIdentificacion}"/>                           
+                            <div class="input-group">
+                                <h:selectOneMenu id="idTipoIdentificacion" class="form-control" value="#{empleadoController.selected.idTipoIdentificacion}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_idTipoIdentificacion}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione Una Opción" itemValue="#{null}"/>
+                                    <f:selectItems value="#{tipoIdentificacionController.itemsAvailableSelectOne}"
+                                                   var="idTipoIdentificacionItem"
+                                                   itemLabel="#{idTipoIdentificacionItem.tipoIdentificacion}"
+                                                   itemValue="#{idTipoIdentificacionItem}"/>
+                                </h:selectOneMenu>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_documento}" for="documento" />
+                            <div class="input-group">
+                                <p:inputText id="documento" class="form-control" value="#{empleadoController.selected.documento}" title="#{bundle.CreateEmpleadoTitle_documento}" required="true" requiredMessage="#{bundle.CreateEmpleadoRequiredMessage_documento}"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_telefono}" for="telefono" />
+                            <div class="input-group">
+                                <p:inputMask mask="999-9999" id="telefono" class="form-control" value="#{empleadoController.selected.telefono}" title="#{bundle.CreateEmpleadoTitle_telefono}" />
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_celular}" for="celular" />
+                            <div class="input-group">
+                                <p:inputMask mask="(999) 999-9999" id="celular" class="form-control" value="#{empleadoController.selected.celular}" title="#{bundle.CreateEmpleadoTitle_celular}" required="true" requiredMessage="#{bundle.CreateEmpleadoRequiredMessage_celular}"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_direccion}" for="direccion" />
+                            <div class="input-group">
+                                <p:inputText id="direccion" class="form-control" value="#{empleadoController.selected.direccion}" title="#{bundle.CreateEmpleadoTitle_direccion}" required="true" requiredMessage="#{bundle.CreateEmpleadoRequiredMessage_direccion}"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_correo}" for="correo" />
+                            <div class="input-group">
+                                <p:inputText id="correo" pt:type="email" class="form-control" value="#{empleadoController.selected.correo}" title="#{bundle.CreateEmpleadoTitle_correo}" />
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_arl}" for="arl" />                           
+                            <div class="input-group">
+                                <p:inputText id="arl" class="form-control" value="#{empleadoController.selected.arl}" title="#{bundle.CreateEmpleadoTitle_arl}" required="true" requiredMessage="#{bundle.CreateEmpleadoRequiredMessage_arl}"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_fechaIngreso}" for="fechaIngreso" />                          
+                            <div class="input-group">
+                                <p:calendar id="fechaIngreso"  pattern="MM/dd/yyyy" value="#{empleadoController.selected.fechaIngreso}" title="#{bundle.EditEmpleadoTitle_fechaIngreso}" navigator="true" locale="es"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_fechaRetiro}" for="fechaRetiro" />                           
+                            <div class="input-group">
+                                <p:calendar id="fechaRetiro" pattern="MM/dd/yyyy" value="#{empleadoController.selected.fechaRetiro}" title="#{bundle.EditEmpleadoTitle_fechaRetiro}"  locale="es"/>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_idUsuario}" for="idUsuario"/> 
+                            <div class="input-group">
+                                <h:selectOneMenu id="idUsuario" class="form-control" value="#{empleadoController.selected.idUsuario}"  required="true" requiredMessage="#{bundle.CreateEmpleadoLabel_idUsuario}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione Una Opción" itemValue="#{null}"/>
+                                    <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                                   var="idUsuarioItem"
+                                                   itemLabel="#{idUsuarioItem.nombreUsuario}"
+                                                   itemValue="#{idUsuarioItem}"/>
+                                </h:selectOneMenu>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_idCargo}" for="idCargo" /> 
+                            <div class="input-group">
+                                <h:selectOneMenu id="idCargo" class="form-control" value="#{empleadoController.selected.idCargo}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_idCargo}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione Una Opción" itemValue="#{null}"/>
+                                    <f:selectItems value="#{cargoController.itemsAvailableSelectOne}"
+                                                   var="idCargoItem"
+                                                   itemLabel="#{idCargoItem.nombreCargo}"
+                                                   itemValue="#{idCargoItem}"/>
+                                </h:selectOneMenu>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_idSalud}" for="idSalud" />
+                            <div class="input-group">
+                                <h:selectOneMenu id="idSalud"  class="form-control" value="#{empleadoController.selected.idSalud}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_idSalud}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione Una Opción" itemValue="#{null}"/>
+                                    <f:selectItems value="#{saludController.itemsAvailableSelectOne}"
+                                                   var="idSaludItem"
+                                                   itemLabel="#{idSaludItem.tipoSalud}"
+                                                   itemValue="#{idSaludItem}"/>
+                                </h:selectOneMenu>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_idPension}" for="idPension" />
+                            <div class="input-group">
+                                <h:selectOneMenu id="idPension" class="form-control" value="#{empleadoController.selected.idPension}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_idPension}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione Una Opción" itemValue="#{null}"/>
+                                    <f:selectItems value="#{pensionController.itemsAvailableSelectOne}"
+                                                   var="idPensionItem"
+                                                   itemLabel="#{idSaludItem.tipoSalud}"
+                                                   itemValue="#{idPensionItem}"/>
+                                </h:selectOneMenu>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_idCajaDeCompensacion}" for="idCajaDeCompensacion" />
+                            <div class="input-group">
+                                <h:selectOneMenu id="idCajaDeCompensacion" class="form-control" value="#{empleadoController.selected.idCajaDeCompensacion}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_idCajaDeCompensacion}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione Una Opción" itemValue="#{null}"/>
+                                    <f:selectItems value="#{cajaDeCompensacionController.itemsAvailableSelectOne}"
+                                                   var="idCajaDeCompensacionItem"
+                                                   itemLabel="#{idCajaDeCompensacionItem.nombreCajaDeCompensacion}"
+                                                   itemValue="#{idCajaDeCompensacionItem}"/>
+                                </h:selectOneMenu>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateEmpleadoLabel_idCiudad}" for="idCiudad" />
+                            <div class="input-group">
+                                <h:selectOneMenu id="idCiudad" class="form-control" value="#{empleadoController.selected.idCiudad}" required="true" requiredMessage="#{bundle.EditEmpleadoRequiredMessage_idCiudad}">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione Una Opción" itemValue="#{null}"/>
+                                    <f:selectItems value="#{ciudadController.itemsAvailableSelectOne}"
+                                                   var="idCiudadItem"
+                                                   itemLabel="#{idCiudadItem.nombreCiudad}"
+                                                   itemValue="#{idCiudadItem}"/>
+                                </h:selectOneMenu>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                            </div>
+                        </div>
+                        <p:commandButton class="orange" actionListener="#{empleadoController.create}" action="/faces/Registrar/Empleado.xhtml?faces-redirect=true" value="#{bundle.Save}" update=":growl"/>
+                        <button type="reset" class="orange">Limpiar</button>
+                    </h:form>
+                </div>
+                <h:outputScript library="js" name="spanishLocale.js"/>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        boton();
+                        $("input").addClass("form-control");
+                        $(".remover_dev").removeClass("form-control");
+                    })
+                </script>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

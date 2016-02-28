@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../Plantilla/DevPlantilla.xhtml">
+
+            <ui:define name="title">
+                Proyectos
+            </ui:define>
+
+            <ui:define name="content">
+                <ul class="breadcrumb">
+                    <li><a href="../../Panel.xhtml">Home</a></li>
+                    <li><a >Consulta</a></li>
+                    <li class="active">Proyecto</li>
+                </ul>
+                <h:form id="ProyectoListForm">
+                    <p:dataTable id="datalist" value="#{proyectoController.listar()}" var="item"
+                                 selectionMode="single" selection="#{proyectoController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idProyecto}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProyectoTitle_nombreProyecto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombreProyecto}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProyectoTitle_codigoProyecto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codigoProyecto}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProyectoTitle_descripcionProyecto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcionProyecto}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProyectoTitle_fechaInicioProyecto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaInicioProyecto}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProyectoTitle_fechaFinalProyecto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaFinalProyecto}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProyectoTitle_valorTotalProyecto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.valorTotalProyecto}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProyectoTitle_idCotizacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCotizacion.idCliente.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProyectoTitle_idEstado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idEstado.tipoEstado}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton rendered="#{usuarioController.usuarioLogueado!=null and usuarioController.usuarioLogueado.tipoRoll.tipoRoll eq 'Administrador'}"  id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{proyectoController.prepareCreate}" action="/faces/Registrar/Proyecto.xhtml?faces-redirect=true"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ProyectoViewForm" oncomplete="PF('ProyectoViewDialog').show()" disabled="#{empty proyectoController.selected}"/>
+                            <p:commandButton rendered="#{usuarioController.usuarioLogueado!=null and usuarioController.usuarioLogueado.tipoRoll.tipoRoll eq 'Administrador'}" id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ProyectoEditForm" oncomplete="PF('ProyectoEditDialog').show()" disabled="#{empty proyectoController.selected}"/>
+                            <p:commandButton rendered="#{usuarioController.usuarioLogueado!=null and usuarioController.usuarioLogueado.tipoRoll.tipoRoll eq 'Administrador'}" id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{proyectoController.borrado()}" update=":growl,datalist" disabled="#{empty proyectoController.selected}">
+                            <p:confirm message="¿Seguro de Eliminar este Proyecto?" header="Aviso" icon="ui-icon-alert"/>
+                            </p:commandButton>
+                            <p:confirmDialog global="true">
+                                <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
+                                <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+                            </p:confirmDialog>
+                            
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
+
+                <ui:include src="Edit.xhtml"/>
+                <ui:include src="View.xhtml"/>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+ <f:metadata>
+     <f:event type="preRenderView" listener="#{usuarioController.validarSession()}"/>
+    </f:metadata>
+    <body>
+
+        <ui:composition template="./../../Plantilla/DevPlantilla.xhtml">
+
+            <ui:define name="title">
+                Adquisiciones
+            </ui:define>
+
+            <ui:define name="content">
+                <div class="migas">
+                    <ul class="breadcrumb">
+                        <li><h:form><h:commandLink value="Inicio" action="/faces/Panel.xhtml?faces-redirect=true"/></h:form></li>
+                        <li><a href="">Consulta</a></li>
+                        <li class="active">Adquisición</li>
+                    </ul>
+                </div>
+                <h1><span>Consulta</span><span style="color: #FF901A;"> Adquisición</span></h1>
+                <hr/>
+                <h:form id="MaterialListForm">
+                    <p:dataTable id="datalist" value="#{adquisicionController.listaMateriales}" var="item"
+                                 paginator="true"
+                                 rowKey="#{item.idMaterial}"
+                                 rows="10"
+                                 reflow="true"
+                                 >
+
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:selectOneMenu 
+                                    class="form-control"
+                                    id="IdAdquisicion" 
+                                    value="#{adquisicionController.adquisicionSeleccionada}"  
+                                    required="true"
+                                    valueChangeListener="#{adquisicionController.cargarMateriales}"
+                                    requiredMessage="#{bundle.EditMaterialRequireddMessage_idAdquisicion}">
+                                    <f:selectItem itemLabel="Seleccione una Adquisición" itemValue="#{null}" noSelectionOption="true" />
+
+                                    <f:selectItems value="#{adquisicionController.itemsAvailableSelectOne}"
+                                                   var="IdAdquisicionItem"
+                                                   itemLabel="#{adquisicionController.convertirFechas(IdAdquisicionItem.fechaAdquisicion)}  - $#{IdAdquisicionItem.valorTotalAdquisicion}"
+                                                   itemValue="#{IdAdquisicionItem}"/>
+
+                                    <p:ajax update="datalist"/>
+                                </h:selectOneMenu>
+                            </p:outputPanel>
+                        </f:facet>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTitle_codigoMaterial}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codigoMaterial}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTitle_nombreMaterial}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombreMaterial}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTitle_precioUnitario}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.precioUnitario}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTitle_cantidadTotal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cantidadTotal}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTitle_descripcionMaterial}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcionMaterial}"/>
+                        </p:column>
+                        <p:column class="id">
+                            <f:facet name="header">
+                                <h:outputText value="TUM"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idTipoUniMedida.abreviatura}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTitle_idCategoria}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCategoria.nombreCategoria}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                <ui:include src="View.xhtml"/>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        hover()
+                    })
+                </script>
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

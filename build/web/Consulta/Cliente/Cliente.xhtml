@@ -33,7 +33,7 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column style="width:22px">
+                        <p:column class="id">
                             <f:facet name="header">
                                 <h:outputText value="#"/>
                             </f:facet>
@@ -44,6 +44,12 @@
                                 <h:outputText value="#{bundle.ListClienteTitle_nombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        <p:column class="ti">
+                            <f:facet name="header">
+                                <h:outputText value="TI"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idTipoIdentificacion.tipoIdentificacion}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -79,13 +85,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListClienteTitle_idCiudad}"/>
                             </f:facet>
-                            <h:outputText value="#{item.idCiudad}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListClienteTitle_idTipoIdentificacion}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idTipoIdentificacion}"/>
+                            <h:outputText value="( #{item.idCiudad.idUbicacion.idPais.abreviatura} ) #{item.idCiudad.idUbicacion.nombreUbicacion} - #{item.idCiudad.nombreCiudad}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton class="orange" id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{clienteController.prepareCreate}" action="/faces/Registrar/Cliente.xhtml?faces-redirect=true"/>
@@ -104,6 +104,11 @@
 
                 <ui:include src="Edit.xhtml"/>
                 <ui:include src="View.xhtml"/>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        hover();
+                    });
+                </script>
             </ui:define>
 
         </ui:composition>

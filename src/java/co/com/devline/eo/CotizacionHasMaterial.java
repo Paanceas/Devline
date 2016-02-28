@@ -153,7 +153,7 @@ public class CotizacionHasMaterial implements Serializable {
 
     @Override
     public String toString() {
-        return idCotizacionHasMaterial + " " + idCotizacion.getFechaCotizacion();
+        return "co.com.devline.eo.CotizacionHasMaterial[ idCotizacionHasMaterial=" + idCotizacionHasMaterial + " ]";
     }
     
 }

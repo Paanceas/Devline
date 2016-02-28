@@ -108,7 +108,7 @@ public class Categoria implements Serializable {
 
     @Override
     public String toString() {
-        return nombreCategoria;
+        return "co.com.devline.eo.Categoria[ idCategoria=" + idCategoria + " ]";
     }
     
 }

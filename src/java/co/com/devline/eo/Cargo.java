@@ -108,7 +108,7 @@ public class Cargo implements Serializable {
 
     @Override
     public String toString() {
-        return nombreCargo;
+        return "co.com.devline.eo.Cargo[ idCargo=" + idCargo + " ]";
     }
     
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PensionEditDlg" widgetVar="PensionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPensionTitle}">
+            <h:form id="PensionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{pensionController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPensionLabel_nombrePension}" for="nombrePension" />
+                        <p:inputText id="nombrePension" value="#{pensionController.selected.nombrePension}" title="#{bundle.EditPensionTitle_nombrePension}" required="true" requiredMessage="#{bundle.EditPensionRequiredMessage_nombrePension}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{pensionController.update}" value="#{bundle.Save}" update="display,:PensionListForm:datalist,:growl" oncomplete="PF('PensionEditDialog').hide();"/>
+                    <p:commandButton value="#{bundle.Cancel}" immediate="true" oncomplete="PF('PensionEditDialog').hide();"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../Plantilla/DevPlantilla.xhtml">
+
+            <ui:define name="title">
+                Material Pro Proveedor
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form >
+                    <div class="migas">
+                        <ul class="breadcrumb">
+                            <li><a href="../../Panel.xhtml">Home</a></li>
+                            <li><a href="">Consulta</a></li>
+                            <li class="active">Materiales por Proveedor</li>
+                        </ul>
+                    </div>
+                    <h1><span>Materiales Por </span><span style="color: #FF901A;"> Proveedor</span></h1>
+                    <hr/>
+                    <h:selectOneMenu
+                        class="form-control"
+                        id="IdProveedor" 
+                        value="#{proveedorController.proveedorSeleccionado}"  
+                        required="true" 
+                        valueChangeListener="#{proveedorController.cargarMateriales}"
+                        requiredMessage="#{bundle.EditMaterialRequiredMessage_idProveedor}">
+                        <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="false" />
+                        <f:selectItems value="#{proveedorController.itemsAvailableSelectOne}"
+                                       var="IdProveedorItem"
+                                       itemLabel="#{IdProveedorItem.nombre}"
+                                       itemValue="#{IdProveedorItem}"/>
+                        <p:ajax update="datalist"/>
+                    </h:selectOneMenu>
+                    <p:dataTable id="datalist" value="#{proveedorController.listaMateriales}" var="item"
+                                 selectionMode="single" selection="#{materialController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idMaterial}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTitle_idMaterial}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idMaterial}"/>
+                        </p:column>
+                        <!--<p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTitle_idCotizacion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCotizacion.toString()}"/>
+                        </p:column>-->
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTitle_idCategoria}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCategoria.nombreCategoria}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTitle_nombreMaterial}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombreMaterial}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTitle_precioUnitario}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.precioUnitario}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTitle_cantidadTotal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cantidadTotal}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMaterialTitle_descripcionMaterial}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcionMaterial}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -16,7 +16,7 @@
         <ui:define name="body">
             <h:form id="ClienteListForm">
                 <p:panel header="#{bundle.ListClienteTitle}">
-                    <p:dataTable id="datalist" value="#{clienteController.listar()}" var="item"
+                    <p:dataTable id="datalist" value="#{clienteController.items}" var="item"
                                  selectionMode="single" selection="#{clienteController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idCliente}"
@@ -91,13 +91,7 @@
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{clienteController.prepareCreate}" update=":ClienteCreateForm" oncomplete="PF('ClienteCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ClienteViewForm" oncomplete="PF('ClienteViewDialog').show()" disabled="#{empty clienteController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ClienteEditForm" oncomplete="PF('ClienteEditDialog').show()" disabled="#{empty clienteController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{clienteController.borradoLogico()}" update=":growl,datalist" disabled="#{empty clienteController.selected}">
-                                 <p:confirm message="¿Seguro de Eliminar este Cliente?" header="Aviso" icon="ui-icon-alert"/>
-                            </p:commandButton>
-                            <p:confirmDialog global="true">
-                                <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
-                                <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
-                            </p:confirmDialog>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{clienteController.destroy}" update=":growl,datalist" disabled="#{empty clienteController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

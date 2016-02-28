@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../Plantilla/DevPlantilla.xhtml">
+
+            <ui:define name="title">
+                Salud
+            </ui:define>
+
+            <ui:define name="content">
+                 <h:form id="SaludListForm">
+                    <p:dataTable id="datalist" value="#{saludController.items}" var="item"
+                                 selectionMode="single" selection="#{saludController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idSalud}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSaludTitle_idSalud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idSalud}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSaludTitle_tipoSalud}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tipoSalud}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{saludController.prepareCreate}" update=":SaludCreateForm" oncomplete="PF('SaludCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SaludViewForm" oncomplete="PF('SaludViewDialog').show()" disabled="#{empty saludController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SaludEditForm" oncomplete="PF('SaludEditDialog').show()" disabled="#{empty saludController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{saludController.destroy}" update=":growl,datalist" disabled="#{empty saludController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

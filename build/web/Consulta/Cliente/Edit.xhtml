@@ -16,29 +16,31 @@
                         <p:inputText id="idCliente" value="#{clienteController.selected.idCliente}" title="#{bundle.EditClienteTitle_idCliente}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_idCliente}" disabled="true"/>
                         <p:outputLabel value="#{bundle.EditClienteLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{clienteController.selected.nombre}" title="#{bundle.EditClienteTitle_nombre}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_nombre}" disabled="true"/>
-                        <p:outputLabel value="#{bundle.EditClienteLabel_identificacion}" for="identificacion" />
-                        <p:inputText id="identificacion" value="#{clienteController.selected.identificacion}" title="#{bundle.EditClienteTitle_identificacion}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_identificacion}" disabled="true"/>
-                        <p:outputLabel value="#{bundle.EditClienteLabel_telefono}" for="telefono" />
-                        <p:inputText id="telefono" value="#{clienteController.selected.telefono}" title="#{bundle.EditClienteTitle_telefono}" />
-                        <p:outputLabel value="#{bundle.EditClienteLabel_celular}" for="celular" />
-                        <p:inputText id="celular" value="#{clienteController.selected.celular}" title="#{bundle.EditClienteTitle_celular}" />
-                        <p:outputLabel value="#{bundle.EditClienteLabel_direccion}" for="direccion" />
-                        <p:inputText id="direccion" value="#{clienteController.selected.direccion}" title="#{bundle.EditClienteTitle_direccion}" />
-                        <p:outputLabel value="#{bundle.EditClienteLabel_correo}" for="correo" />
-                        <p:inputText id="correo" value="#{clienteController.selected.correo}" title="#{bundle.EditClienteTitle_correo}" />
-                        <p:outputLabel value="#{bundle.EditClienteLabel_idCiudad}" for="idCiudad" />
-                        <p:selectOneMenu id="idCiudad" value="#{clienteController.selected.idCiudad}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_idCiudad}" disabled="true">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{ciudadController.itemsAvailableSelectOne}"
-                                           var="idCiudadItem"
-                                           itemValue="#{idCiudadItem}"/>
-                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditClienteLabel_idTipoIdentificacion}" for="idTipoIdentificacion" />
                         <p:selectOneMenu id="idTipoIdentificacion" value="#{clienteController.selected.idTipoIdentificacion}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_idTipoIdentificacion}" disabled="true">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{tipoIdentificacionController.itemsAvailableSelectOne}"
                                            var="idTipoIdentificacionItem"
+                                           itemLabel="#{idTipoIdentificacionItem.tipoIdentificacion}"
                                            itemValue="#{idTipoIdentificacionItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditClienteLabel_identificacion}" for="identificacion" />
+                        <p:inputText id="identificacion" value="#{clienteController.selected.identificacion}" title="#{bundle.EditClienteTitle_identificacion}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_identificacion}" disabled="true"/>
+                        <p:outputLabel value="#{bundle.EditClienteLabel_telefono}" for="telefono" />
+                        <p:inputMask mask="999-9999" id="telefono" value="#{clienteController.selected.telefono}" title="#{bundle.EditClienteTitle_telefono}" />
+                        <p:outputLabel value="#{bundle.EditClienteLabel_celular}" for="celular" />
+                        <p:inputMask mask="(999) 999-9999" id="celular" value="#{clienteController.selected.celular}" title="#{bundle.EditClienteTitle_celular}" />
+                        <p:outputLabel value="#{bundle.EditClienteLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{clienteController.selected.direccion}" title="#{bundle.EditClienteTitle_direccion}" />
+                        <p:outputLabel value="#{bundle.EditClienteLabel_correo}" for="correo" />
+                        <p:inputText id="correo" value="#{clienteController.selected.correo}" title="#{bundle.EditClienteTitle_correo}" />
+                        <p:outputLabel value="#{bundle.EditClienteLabel_idCiudad}" for="idCiudad" />
+                        <p:selectOneMenu id="idCiudad" value="#{clienteController.selected.idCiudad}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_idCiudad}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ciudadController.itemsAvailableSelectOne}"
+                                           var="idCiudadItem"
+                                           itemLabel="( #{idCiudadItem.idUbicacion.idPais.abreviatura} ) #{idCiudadItem.idUbicacion.nombreUbicacion} - #{idCiudadItem.nombreCiudad}"
+                                           itemValue="#{idCiudadItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{clienteController.update}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl"  oncomplete="PF('ClienteEditDialog').hide();"/>

@@ -1,5 +1,8 @@
 package co.com.devline.mb;
 
+import co.com.devline.eo.Empleado;
+import co.com.devline.eo.Material;
+import co.com.devline.eo.Proveedor;
 import co.com.devline.eo.Proyecto;
 import co.com.devline.mb.util.JsfUtil;
 import co.com.devline.mb.util.JsfUtil.PersistAction;
@@ -12,12 +15,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.event.ValueChangeEvent;
 
 @ManagedBean(name = "proyectoController")
 @SessionScoped
@@ -28,7 +33,55 @@ public class ProyectoController implements Serializable {
     private List<Proyecto> items = null;
     private Proyecto selected;
 
+    //ajax count cliente
+    private Long cantProyectos;
+
+    public void proyectoTotal() {
+        cantProyectos = ejbFacade.cantProyectos();
+    }
+
+    //borradoLogico
+    private List<Proyecto> listaProyectos = null;
+
+    //consultaMaestroDetalle consulta
+    private Proyecto proyectoSeleccionado;
+    private List<Empleado> listaEmpleados;
+
     public ProyectoController() {
+    }
+
+    //maestro Detalle consulta
+
+    public void cargarEmpleados(ValueChangeEvent value) {
+        proyectoSeleccionado = (Proyecto) value.getNewValue();
+        listaEmpleados = ejbFacade.obtenerEmpleadosXProyecto(proyectoSeleccionado);
+    }
+
+    public Proyecto getProyectoSeleccionado() {
+        return proyectoSeleccionado;
+    }
+
+    public void setProyectoSeleccionado(Proyecto proyectoSeleccionado) {
+        this.proyectoSeleccionado = proyectoSeleccionado;
+    }
+
+    public List<Empleado> getListaEmpleados() {
+        return listaEmpleados;
+    }
+
+    public void setListaEmpleados(List<Empleado> listaEmpleados) {
+        this.listaEmpleados = listaEmpleados;
+    }
+
+    //borrado Logico
+    public List<Proyecto> listar() {
+        listaProyectos = ejbFacade.listarProyecto();
+        return listaProyectos;
+    }
+
+    public void borrado() {
+        ejbFacade.borrado(selected);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Cliente Eliminado"));
     }
 
     public Proyecto getSelected() {
@@ -60,6 +113,7 @@ public class ProyectoController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
     }
 
     public void update() {
@@ -116,6 +170,23 @@ public class ProyectoController implements Serializable {
     public List<Proyecto> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
+
+    public List<Proyecto> getListaProyectos() {
+        return listaProyectos;
+    }
+
+    public void setListaProyectos(List<Proyecto> listaProyectos) {
+        this.listaProyectos = listaProyectos;
+    }
+
+    public Long getCantProyectos() {
+        return cantProyectos;
+    }
+
+    public void setCantProyectos(Long cantProyectos) {
+        this.cantProyectos = cantProyectos;
+    }
+
 
     @FacesConverter(forClass = Proyecto.class)
     public static class ProyectoControllerConverter implements Converter {

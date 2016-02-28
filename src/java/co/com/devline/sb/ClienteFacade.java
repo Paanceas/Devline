@@ -19,7 +19,7 @@ import javax.persistence.PersistenceContext;
 public class ClienteFacade extends AbstractFacade<Cliente> {
     @PersistenceContext(unitName = "DevlinePU")
     private EntityManager em;
-    private List<Cliente> lista;
+     private List<Cliente> lista;
     private Cliente cliente;
 
     @Override
@@ -30,7 +30,7 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
     public ClienteFacade() {
         super(Cliente.class);
     }
-    public List<Cliente> listarClientes(){
+     public List<Cliente> listarClientes(){
         
         lista = em.createNamedQuery("Cliente.findAll").getResultList();
         return lista;
@@ -42,6 +42,19 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
             System.out.println("error al hacer borrado lógico cliente");
             e.printStackTrace();
         }
+    }
+    //ajax count cliente
+     public Long cantClientes() {
+        String query;
+        Long count = null;
+        try {
+            query = "SELECT COUNT(c) FROM Cliente c";
+            count = (Long) em.createQuery(query).getSingleResult();
+        } catch (Exception e) {
+            System.out.println("Error en el Query de Login de cantClientes");
+            e.printStackTrace();
+        }
+        return count;
     }
     public List<Cliente> getLista() {
         return lista;
@@ -58,5 +71,4 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    
 }
