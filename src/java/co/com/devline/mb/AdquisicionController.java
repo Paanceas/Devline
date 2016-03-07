@@ -40,9 +40,11 @@ public class AdquisicionController implements Serializable {
     private Proveedor proveedor = new Proveedor();
     private List<MaterialHasAdquisicion> ListaAdquisicion = new ArrayList();
     private List<ProveedorHasMaterial> ListaProveedor = new ArrayList();
+    
+    //registrar Adquiscicion
     private List<Material> listaMateriales = new ArrayList();
     private List<Proveedor> listaProveedores = new ArrayList();
-    private int cantidad;
+    private int cantidad = 0;
 
 //maestro detalle
     private List<Material> listaMaterialesAdquisicion;
@@ -68,7 +70,7 @@ public class AdquisicionController implements Serializable {
 
         pro.setIdProveedor(proveedor.getIdProveedor());
         this.listaProveedores.add(pro);
-
+        
         mat.setCodigoMaterial(material.getCodigoMaterial());
         mat.setNombreMaterial(material.getNombreMaterial());
         mat.setDescripcionMaterial(material.getDescripcionMaterial());
@@ -81,9 +83,36 @@ public class AdquisicionController implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Material Asignado", "Correctamente"));
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-
     }
-
+    public void removerMaterial(Material material){
+        this.listaMateriales.remove(material);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Material Removido", "Correctamente"));
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+    }
+    public String registrarAdquiscion(){
+        
+        
+        
+        //fecha actual convertida en YYYY/MM/DD
+        java.util.Date fecha = new Date();
+        
+        //VALOR TOTAL DE LA ADQUISICION
+        for (Material mat : listaMateriales) {
+            cantidad += mat.getPrecioUnitario() * mat.getCantidadTotal();
+        }
+        
+        //asignacion de valores a la adquisicion;
+        selected.setFechaAdquisicion(fecha);
+        selected.setValorTotalAdquisicion(cantidad);
+        
+        //Registro la adqusicion
+        //ejbFacade.create(selected);
+        int ultimaAdquiscion = ejbFacade.ultimaAdquisicion();
+       // ejbFacade.RegistrarMaterialYTablasHas(this.listaMateriales, this.listaProveedores, ultimaAdquiscion);
+        return "Adquisicion.xhtml?faces-redirect=true";
+        
+    }
     public Adquisicion getSelected() {
         return selected;
     }

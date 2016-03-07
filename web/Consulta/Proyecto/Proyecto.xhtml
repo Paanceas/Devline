@@ -5,7 +5,9 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{usuarioController.validarSession()}"/>
+    </f:metadata>
     <body>
 
         <ui:composition template="./../../Plantilla/DevPlantilla.xhtml">
@@ -27,6 +29,7 @@
                                  rowKey="#{item.idProyecto}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
+                                 reflow="true"
                                  >
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
@@ -89,13 +92,13 @@
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ProyectoViewForm" oncomplete="PF('ProyectoViewDialog').show()" disabled="#{empty proyectoController.selected}"/>
                             <p:commandButton rendered="#{usuarioController.usuarioLogueado!=null and usuarioController.usuarioLogueado.tipoRoll.tipoRoll eq 'Administrador'}" id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ProyectoEditForm" oncomplete="PF('ProyectoEditDialog').show()" disabled="#{empty proyectoController.selected}"/>
                             <p:commandButton rendered="#{usuarioController.usuarioLogueado!=null and usuarioController.usuarioLogueado.tipoRoll.tipoRoll eq 'Administrador'}" id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{proyectoController.borrado()}" update=":growl,datalist" disabled="#{empty proyectoController.selected}">
-                            <p:confirm message="¿Seguro de Eliminar este Proyecto?" header="Aviso" icon="ui-icon-alert"/>
+                                <p:confirm message="¿Seguro de Eliminar este Proyecto?" header="Aviso" icon="ui-icon-alert"/>
                             </p:commandButton>
                             <p:confirmDialog global="true">
                                 <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes"/>
                                 <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
                             </p:confirmDialog>
-                            
+
                         </f:facet>
                     </p:dataTable>
                 </h:form>

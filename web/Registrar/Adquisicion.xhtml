@@ -6,7 +6,9 @@
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{usuarioController.validarSession()}"/>
+    </f:metadata>
     <body>
 
         <ui:composition template="./../Plantilla/DevPlantilla.xhtml">
@@ -44,12 +46,12 @@
                             <p:inputText id="nombreMaterial" pt:placeholder="NombreMaterial" value="#{adquisicionController.material.nombreMaterial}" title="#{bundle.CreateMaterialTitle_nombreMaterial}" required="true" requiredMessage="#{bundle.CreateMaterialRequiredMessage_nombreMaterial}"/>
                         </div>
                         <div class="form-group">
-                            <p:outputLabel value="#{bundle.CreateMaterialLabel_precioUnitario}" for="precioUnitario" />
-                            <p:inputText id="precioUnitario" class="value" pt:type="number" pt:placeholder="PrecioUnitario" value="#{adquisicionController.material.precioUnitario}" title="#{bundle.CreateMaterialTitle_precioUnitario}" required="true" requiredMessage="#{bundle.CreateMaterialRequiredMessage_precioUnitario}"/>
-                        </div>
-                        <div class="form-group">
                             <p:outputLabel value="#{bundle.CreateMaterialLabel_cantidadTotal}" for="cantidadTotal" />
                             <p:inputText id="cantidadTotal" class="value" pt:type="number" pt:placeholder="CantidadTotal" value="#{adquisicionController.material.cantidadTotal}" title="#{bundle.CreateMaterialTitle_cantidadTotal}" required="true" requiredMessage="#{bundle.CreateMaterialRequiredMessage_cantidadTotal}"/>
+                        </div>
+                        <div class="form-group">
+                            <p:outputLabel value="#{bundle.CreateMaterialLabel_precioUnitario}" for="precioUnitario" />
+                            <p:inputText id="precioUnitario" class="value" pt:type="number" pt:placeholder="PrecioUnitario" value="#{adquisicionController.material.precioUnitario}" title="#{bundle.CreateMaterialTitle_precioUnitario}" required="true" requiredMessage="#{bundle.CreateMaterialRequiredMessage_precioUnitario}"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -79,8 +81,12 @@
                             </h:selectOneMenu>
                         </div>
                     </div>
-                    <p:commandButton actionListener="#{adquisicionController.agregar()}" class="orange" value="Ingresar Material" update="materiales" action="#{adquisicionController.prepararMaterial()}" />
+                    <p:commandButton actionListener="#{adquisicionController.agregar()}" class="orange" value="Ingresar Material" action="#{adquisicionController.prepararMaterial()}" >
+                        <p:ajax update=":forMateriales:materiales"/>
+                    </p:commandButton>
                     <br/><br/>
+                </h:form>
+                <h:form id="forMateriales">
                     <p:dataTable var="material" id="materiales"
                                  value="#{adquisicionController.listaMateriales}">
                         <p:column headerText="CodigoMaterial">
@@ -89,15 +95,17 @@
                         <p:column headerText="NombreMaterial">
                             #{material.nombreMaterial}
                         </p:column>
-                        <p:column headerText="PrecioUnitario">
-                            #{material.precioUnitario}
-                        </p:column>
                         <p:column headerText="CantidadTotal">
                             #{material.cantidadTotal}
                         </p:column>
-
+                        <p:column headerText="PrecioUnitario">
+                            #{material.precioUnitario}
+                        </p:column>
+                        <p:column style="width:50px;text-align: center">
+                            <p:commandButton update="materiales" value="X" title="Remover material" actionListener="#{adquisicionController.removerMaterial(material)}"/>
+                        </p:column>
                     </p:dataTable>
-                    <p:commandButton class="orange" value="Registrar Adquisición"/>
+                    <p:commandButton class="orange" value="Registrar Adquisición" action="#{adquisicionController.registrarAdquiscion()}"/>
                 </h:form>
                 <script type="text/javascript">
                     $(document).ready(function () {

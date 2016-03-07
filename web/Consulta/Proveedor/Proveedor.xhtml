@@ -5,7 +5,9 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{usuarioController.validarSession()}"/>
+    </f:metadata>
     <body>
 
         <ui:composition template="./../../Plantilla/DevPlantilla.xhtml">
@@ -26,6 +28,7 @@
                                  paginator="true"
                                  rowKey="#{item.idProveedor}"
                                  rows="10"
+                                 reflow="true"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
@@ -38,7 +41,7 @@
                             </f:facet>
                             <h:outputText value="#{item.idProveedor}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.nombre}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProveedorTitle_nombre}"/>
                             </f:facet>
@@ -48,9 +51,10 @@
                             <f:facet name="header">
                                 <h:outputText value="TI"/>
                             </f:facet>
+
                             <h:outputText value="#{item.idTipoIdentificacion}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.identificacion}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProveedorTitle_identificacion}"/>
                             </f:facet>

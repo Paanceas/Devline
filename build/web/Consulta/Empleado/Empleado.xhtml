@@ -5,7 +5,9 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{usuarioController.validarSession()}"/>
+    </f:metadata>
     <body>
 
         <ui:composition template="./../../Plantilla/DevPlantilla.xhtml">
@@ -20,12 +22,13 @@
                     <li><a >Consulta</a></li>
                     <li class="active">Empleado</li>
                 </ul>
-                 <h:form id="EmpleadoListForm">
-                     <p:dataTable id="datalist" value="#{empleadoController.listar()}" var="item"
+                <h:form id="EmpleadoListForm">
+                    <p:dataTable id="datalist" value="#{empleadoController.listar()}" var="item"
                                  selectionMode="single" selection="#{empleadoController.selected}"
                                  paginator="true"
                                  rowKey="#{item.idEmpleado}"
                                  rows="10"
+                                 reflow="true"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
@@ -38,7 +41,7 @@
                             </f:facet>
                             <h:outputText value="#{item.idEmpleado}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.nombre}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEmpleadoTitle_nombre}"/>
                             </f:facet>
@@ -50,7 +53,7 @@
                             </f:facet>
                             <h:outputText value="#{item.idTipoIdentificacion.tipoIdentificacion}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.documento}" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEmpleadoTitle_documento}"/>
                             </f:facet>

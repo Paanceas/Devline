@@ -6,6 +6,7 @@
 package co.com.devline.sb;
 
 import co.com.devline.eo.Material;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -30,6 +31,7 @@ public class MaterialFacade extends AbstractFacade<Material> {
         super(Material.class);
     }
 //maestro detalle
+
     public List<Material> getListaMaterialesXIdAdquisicion(Integer idAdquisicion) {
         try {
             return (List<Material>) em.createQuery("SELECT e FROM Material e, MaterialHasAdquisicion p WHERE e.idMaterial = p.idMaterial.idMaterial and p.idAdquisicion.idAdquisicion = :idAdquisicion").setParameter("idAdquisicion", idAdquisicion).getResultList();
@@ -39,7 +41,8 @@ public class MaterialFacade extends AbstractFacade<Material> {
         return null;
     }
 //maestro detalle proveedor
-       public List<Material> getListaMaterialesXIdCotizacion(Integer idMaterial) {
+
+    public List<Material> getListaMaterialesXIdCotizacion(Integer idMaterial) {
         try {
             //HACER LA QUERY--------------------------------------------------------
             return (List<Material>) em.createQuery("SELECT m FROM Material m, ProveedorHasMaterial c WHERE m.idMaterial = c.idMaterial.idMaterial AND c.idMaterial.idMaterial = :idMaterial").setParameter("idMaterial", idMaterial).getResultList();
@@ -49,4 +52,5 @@ public class MaterialFacade extends AbstractFacade<Material> {
         }
         return null;
     }
+
 }
